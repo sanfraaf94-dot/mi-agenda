@@ -12,8 +12,9 @@
       --bg-soft: #0b0b10;
       --card: #050509;
       --card-soft: #111119;
-      --accent: #facc15; /* dorado principal */
-      --accent-soft: rgba(250, 204, 21, 0.12);
+      /* Morado principal */
+      --accent: #a855f7;
+      --accent-soft: rgba(168, 85, 247, 0.12);
       --border: #262630;
       --text: #f9fafb;
       --muted: #9ca3af;
@@ -55,7 +56,7 @@
       justify-content: space-between;
       background:
         radial-gradient(circle at top left, #111827 0, #020617 60%),
-        linear-gradient(to right, rgba(250, 204, 21, 0.08), transparent);
+        linear-gradient(to right, rgba(168, 85, 247, 0.18), transparent);
     }
 
     .app-title {
@@ -74,33 +75,6 @@
 
     .app-title h1 span.accent {
       color: var(--accent);
-    }
-
-    .app-title span.subtitle {
-      font-size: 0.88rem;
-      color: var(--muted);
-    }
-
-    .title-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(250, 204, 21, 0.55);
-      background: rgba(15, 23, 42, 0.9);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #fef9c3;
-    }
-
-    .title-pill-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 12px rgba(250, 204, 21, 0.9);
     }
 
     .app-date {
@@ -218,8 +192,8 @@
     }
 
     input:focus, select:focus, textarea:focus {
-      border-color: rgba(250, 204, 21, 0.9);
-      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.5);
+      border-color: rgba(168, 85, 247, 0.9);
+      box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.5);
       background: #020617;
     }
 
@@ -264,14 +238,14 @@
     }
 
     .btn-primary {
-      background: radial-gradient(circle at top left, #facc15, #eab308);
-      color: #111827;
-      box-shadow: 0 10px 25px rgba(250, 204, 21, 0.5);
+      background: radial-gradient(circle at top left, #a855f7, #7c3aed);
+      color: #f9fafb;
+      box-shadow: 0 10px 25px rgba(168, 85, 247, 0.5);
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 16px 35px rgba(250, 204, 21, 0.75);
+      box-shadow: 0 16px 35px rgba(168, 85, 247, 0.75);
     }
 
     .btn-secondary {
@@ -300,13 +274,13 @@
     }
 
     .btn-toggle-view.active {
-      border-color: rgba(250, 204, 21, 0.9);
+      border-color: rgba(168, 85, 247, 0.9);
       background: rgba(24, 24, 27, 0.95);
       color: #fefce8;
-      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.6);
+      box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.6);
     }
 
-    /* Etiquetas / categorías (tonos tipo finanzas) */
+    /* Etiquetas / categorías */
 
     .tag-pill {
       display: inline-flex;
@@ -329,14 +303,15 @@
       background: currentColor;
     }
 
-    .tag-doctores { color: #fb7185; }      /* rosa médico */
-    .tag-facturacion { color: #38bdf8; }   /* azul facturas */
-    .tag-contabilidad { color: #a855f7; }  /* violeta contabilidad */
-    .tag-impuestos { color: #facc15; }     /* dorado impuestos */
-    .tag-banco { color: #22c55e; }         /* verde banco */
-    .tag-liquidaciones { color: #f97316; } /* naranja liquidaciones */
-    .tag-personal { color: #f9a8d4; }      /* rosa personal */
-    .tag-seguros { color: #67e8f9; }       /* cian seguros */
+    .tag-doctores      { color: #fb7185; }
+    .tag-facturacion   { color: #38bdf8; }
+    .tag-contabilidad  { color: #a855f7; }
+    .tag-impuestos     { color: #facc15; }
+    .tag-banco         { color: #22c55e; }
+    .tag-liquidaciones { color: #f97316; }
+    .tag-personal      { color: #f9a8d4; }
+    .tag-seguros       { color: #67e8f9; }
+    .tag-proveedores   { color: #f472b6; }
 
     /* Panel recordatorios */
 
@@ -407,16 +382,17 @@
       padding: 2px 0 4px;
     }
 
-    /* Colores del fondo de recordatorios según etiqueta */
+    /* Colores recordatorios según etiqueta */
 
-    .reminder-doctores   { background: rgba(248, 113, 150, 0.15); border-color: rgba(248, 113, 150, 0.4);}
-    .reminder-facturacion{ background: rgba(56, 189, 248, 0.15);  border-color: rgba(56, 189, 248, 0.4);}
-    .reminder-contabilidad{background: rgba(168, 85, 247, 0.18);  border-color: rgba(168, 85, 247, 0.45);}
-    .reminder-impuestos  { background: rgba(250, 204, 21, 0.15);  border-color: rgba(250, 204, 21, 0.5);}
-    .reminder-banco      { background: rgba(34, 197, 94, 0.15);   border-color: rgba(34, 197, 94, 0.45);}
-    .reminder-liquidaciones{background: rgba(249, 115, 22, 0.18); border-color: rgba(249, 115, 22, 0.5);}
-    .reminder-personal   { background: rgba(244, 114, 182, 0.18); border-color: rgba(244, 114, 182, 0.45);}
-    .reminder-seguros    { background: rgba(45, 212, 191, 0.15);  border-color: rgba(45, 212, 191, 0.45);}
+    .reminder-doctores      { background: rgba(248, 113, 150, 0.15); border-color: rgba(248, 113, 150, 0.4);}
+    .reminder-facturacion   { background: rgba(56, 189, 248, 0.15);  border-color: rgba(56, 189, 248, 0.4);}
+    .reminder-contabilidad  { background: rgba(168, 85, 247, 0.18);  border-color: rgba(168, 85, 247, 0.45);}
+    .reminder-impuestos     { background: rgba(250, 204, 21, 0.15);  border-color: rgba(250, 204, 21, 0.5);}
+    .reminder-banco         { background: rgba(34, 197, 94, 0.15);   border-color: rgba(34, 197, 94, 0.45);}
+    .reminder-liquidaciones { background: rgba(249, 115, 22, 0.18);  border-color: rgba(249, 115, 22, 0.5);}
+    .reminder-personal      { background: rgba(244, 114, 182, 0.18); border-color: rgba(244, 114, 182, 0.45);}
+    .reminder-seguros       { background: rgba(45, 212, 191, 0.15);  border-color: rgba(45, 212, 191, 0.45);}
+    .reminder-proveedores   { background: rgba(244, 114, 182, 0.18); border-color: rgba(244, 114, 182, 0.45);}
 
     /* Toolbar y stats */
 
@@ -462,7 +438,7 @@
     }
 
     .filter-select {
-      max-width: 170px;
+      max-width: 180px;
     }
 
     select.filter-select {
@@ -478,7 +454,7 @@
       margin-top: 4px;
     }
 
-    /* Vistas: semana / día  */
+    /* Vista toggle */
 
     .view-toggle {
       display: inline-flex;
@@ -528,9 +504,9 @@
       font-size: 0.65rem;
       padding: 2px 6px;
       border-radius: 999px;
-      background: rgba(250, 204, 21, 0.15);
+      background: rgba(168, 85, 247, 0.2);
       color: var(--accent);
-      border: 1px solid rgba(250, 204, 21, 0.7);
+      border: 1px solid rgba(168, 85, 247, 0.7);
       align-self: flex-start;
       margin-top: 3px;
     }
@@ -562,7 +538,7 @@
       background: rgba(15, 23, 42, 0.96);
     }
 
-    /* Vista diaria: lista vertical */
+    /* Vista diaria */
 
     .day-view {
       margin-top: 10px;
@@ -649,7 +625,7 @@
     .event-chip:hover {
       transform: translateY(-0.5px);
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.9);
-      border-color: rgba(250, 204, 21, 0.7);
+      border-color: rgba(168, 85, 247, 0.7);
     }
 
     .event-chip-title {
@@ -739,7 +715,7 @@
       }
     }
 
-    /* Modal detalle */
+    /* Modal */
 
     .modal-backdrop {
       position: fixed;
@@ -882,14 +858,6 @@
     <header class="app-header">
       <div class="app-title">
         <h1><span class="accent">Tareas Finanzas</span> – IDB</h1>
-        <span class="subtitle">
-          Agenda de finanzas para clínica de cirugía y medicina estética:
-          facturación, impuestos, bancos, personal y más.
-        </span>
-        <span class="title-pill">
-          <span class="title-pill-dot"></span>
-          Responsable de finanzas · Clínica IDB
-        </span>
       </div>
       <div class="app-date">
         <span class="app-date-main" id="headerTodayLabel"></span>
@@ -911,7 +879,7 @@
           <div class="field-row">
             <div class="field" style="flex:2;">
               <label for="titulo">Título</label>
-              <input type="text" id="titulo" placeholder="Ej.: Liquidación IVA Q4, revisión seguros médicos..." required />
+              <input type="text" id="titulo" placeholder="Ej.: Liquidación IVA, pago proveedores, revisión seguros..." required />
             </div>
           </div>
 
@@ -939,6 +907,7 @@
                 <option value="liquidaciones">Liquidaciones</option>
                 <option value="personal">Personal / Nómina</option>
                 <option value="seguros">Seguros</option>
+                <option value="proveedores">Proveedores</option>
               </select>
             </div>
             <div class="field">
@@ -994,6 +963,9 @@
               </button>
               <button type="button" class="tag-pill tag-seguros" data-tag="seguros">
                 <span class="dot"></span> Seguros
+              </button>
+              <button type="button" class="tag-pill tag-proveedores" data-tag="proveedores">
+                <span class="dot"></span> Proveedores
               </button>
             </div>
           </div>
@@ -1057,6 +1029,7 @@
               <option value="liquidaciones">Liquidaciones</option>
               <option value="personal">Personal / Nómina</option>
               <option value="seguros">Seguros</option>
+              <option value="proveedores">Proveedores</option>
             </select>
             <button type="button" class="btn-secondary" id="clearFilterBtn">
               Limpiar filtro
@@ -1131,14 +1104,15 @@
     const STORAGE_KEY = "agenda_finanzas_idb_v1";
 
     const CATEGORIES = {
-      doctores: { label: "Doctores", class: "tag-doctores", rClass:"reminder-doctores" },
-      facturacion: { label: "Facturación", class: "tag-facturacion", rClass:"reminder-facturacion" },
+      doctores:     { label: "Doctores", class: "tag-doctores",      rClass:"reminder-doctores" },
+      facturacion:  { label: "Facturación", class: "tag-facturacion", rClass:"reminder-facturacion" },
       contabilidad: { label: "Contabilidad", class: "tag-contabilidad", rClass:"reminder-contabilidad" },
-      impuestos: { label: "Impuestos", class: "tag-impuestos", rClass:"reminder-impuestos" },
-      banco: { label: "Banco", class: "tag-banco", rClass:"reminder-banco" },
-      liquidaciones: { label: "Liquidaciones", class: "tag-liquidaciones", rClass:"reminder-liquidaciones" },
-      personal: { label: "Personal / Nómina", class: "tag-personal", rClass:"reminder-personal" },
-      seguros: { label: "Seguros", class: "tag-seguros", rClass:"reminder-seguros" }
+      impuestos:    { label: "Impuestos", class: "tag-impuestos",    rClass:"reminder-impuestos" },
+      banco:        { label: "Banco", class: "tag-banco",            rClass:"reminder-banco" },
+      liquidaciones:{ label: "Liquidaciones", class: "tag-liquidaciones", rClass:"reminder-liquidaciones" },
+      personal:     { label: "Personal / Nómina", class: "tag-personal", rClass:"reminder-personal" },
+      seguros:      { label: "Seguros", class: "tag-seguros",        rClass:"reminder-seguros" },
+      proveedores:  { label: "Proveedores", class: "tag-proveedores", rClass:"reminder-proveedores" }
     };
 
     const HOURS = Array.from({ length: 13 }, (_, i) => 8 + i); // 08–20
@@ -1195,7 +1169,7 @@
 
     let currentWeekStart = getWeekStart(new Date());
     let currentFilterCategory = "";
-    let currentView = "week"; // "week" o "day"
+    let currentView = "week";
 
     const weekHeaderEl = document.getElementById("weekHeader");
     const weekBodyEl = document.getElementById("weekBody");
@@ -1439,7 +1413,7 @@
       });
     }
 
-    // ----- RECORDATORIOS: pendientes, coloreados por etiqueta -----
+    // ----- RECORDATORIOS -----
     function renderReminders() {
       const all = sortEvents(readEvents()).filter(ev => ev.estado !== "hecho");
       const today = new Date();
