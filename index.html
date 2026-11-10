@@ -2,29 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Agenda Semanal Elegante</title>
+  <title>Tareas Finanzas - IDB</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0f172a;
-      --bg-soft: #111827;
-      --card: #020617;
-      --card-soft: #020617;
-      --accent: #6366f1;
-      --accent-soft: rgba(99, 102, 241, 0.15);
-      --border: #1f2937;
-      --text: #e5e7eb;
+      --bg: #050509;
+      --bg-soft: #0b0b10;
+      --card: #050509;
+      --card-soft: #111119;
+      --accent: #facc15; /* dorado principal */
+      --accent-soft: rgba(250, 204, 21, 0.12);
+      --border: #262630;
+      --text: #f9fafb;
       --muted: #9ca3af;
       --danger: #f97373;
-      --radius: 10px;
+      --radius: 12px;
     }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #1f2937 0, #020617 45%);
+      background:
+        radial-gradient(circle at top, #111827 0, #020617 40%),
+        radial-gradient(circle at bottom, #000 0, #020617 55%);
       color: var(--text);
       min-height: 100vh;
       padding: 24px;
@@ -34,28 +36,26 @@
 
     .app {
       width: 100%;
-      max-width: 1200px;
-      background: linear-gradient(
-        135deg,
-        rgba(148, 163, 184, 0.08),
-        rgba(15, 23, 42, 0.98)
-      );
-      border-radius: 20px;
+      max-width: 1280px;
+      background: radial-gradient(circle at top left, #020617 0, #020617 65%);
+      border-radius: 24px;
       border: 1px solid rgba(148, 163, 184, 0.35);
       box-shadow:
-        0 28px 60px rgba(15, 23, 42, 0.9),
+        0 28px 80px rgba(0, 0, 0, 0.95),
         0 0 0 1px rgba(15, 23, 42, 0.9);
       overflow: hidden;
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(22px);
     }
 
     .app-header {
-      padding: 20px 24px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: radial-gradient(circle at top left, #111827, #020617);
+      background:
+        radial-gradient(circle at top left, #111827 0, #020617 60%),
+        linear-gradient(to right, rgba(250, 204, 21, 0.08), transparent);
     }
 
     .app-title {
@@ -65,34 +65,74 @@
     }
 
     .app-title h1 {
-      font-size: 1.4rem;
-      letter-spacing: 0.04em;
+      font-size: 1.5rem;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #f9fafb;
+      color: #fefce8;
       font-weight: 600;
     }
 
-    .app-title span {
-      font-size: 0.9rem;
+    .app-title h1 span.accent {
+      color: var(--accent);
+    }
+
+    .app-title span.subtitle {
+      font-size: 0.88rem;
       color: var(--muted);
+    }
+
+    .title-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(250, 204, 21, 0.55);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #fef9c3;
+    }
+
+    .title-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(250, 204, 21, 0.9);
     }
 
     .app-date {
       font-size: 0.9rem;
       color: var(--muted);
       text-align: right;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      align-items: flex-end;
+    }
+
+    .app-date-main {
+      font-size: 0.9rem;
+      color: #e5e7eb;
+    }
+
+    .app-date-sub {
+      font-size: 0.78rem;
+      color: #9ca3af;
     }
 
     .app-body {
       display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 2fr);
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr);
       gap: 1px;
-      background: rgba(15, 23, 42, 0.8);
+      background: #020617;
     }
 
     .panel {
       padding: 18px;
-      background: radial-gradient(circle at top, #020617, #020617 70%);
+      background: radial-gradient(circle at top, #020617 0, #020617 70%);
     }
 
     .panel + .panel {
@@ -119,7 +159,7 @@
       font-size: 0.95rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #9ca3af;
+      color: #e5e7eb;
     }
 
     .section-title span {
@@ -127,11 +167,13 @@
       color: var(--muted);
     }
 
+    /* Formulario */
+
     form {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      background: radial-gradient(circle at top left, #020617, #020617 60%);
+      background: radial-gradient(circle at top left, #020617 0, #020617 60%);
       border-radius: var(--radius);
       padding: 14px;
       border: 1px solid rgba(55, 65, 81, 0.9);
@@ -154,7 +196,14 @@
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: #9ca3af;
+      color: #e5e7eb;
+    }
+
+    label span.muted {
+      color: var(--muted);
+      text-transform: none;
+      letter-spacing: normal;
+      font-size: 0.7rem;
     }
 
     input, select, textarea {
@@ -162,15 +211,15 @@
       padding: 8px 10px;
       border-radius: 8px;
       border: 1px solid rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.95);
+      background: rgba(3, 7, 18, 0.9);
       color: var(--text);
       outline: none;
       transition: border 0.15s, box-shadow 0.15s, background 0.15s;
     }
 
     input:focus, select:focus, textarea:focus {
-      border-color: rgba(129, 140, 248, 0.9);
-      box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.4);
+      border-color: rgba(250, 204, 21, 0.9);
+      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.5);
       background: #020617;
     }
 
@@ -182,27 +231,6 @@
     .hint {
       font-size: 0.75rem;
       color: var(--muted);
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(31, 41, 55, 0.9);
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #9ca3af;
-    }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--accent);
     }
 
     .form-footer {
@@ -232,27 +260,28 @@
       font-size: 0.85rem;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s, color 0.1s;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      color: white;
-      box-shadow: 0 8px 18px rgba(79, 70, 229, 0.8);
+      background: radial-gradient(circle at top left, #facc15, #eab308);
+      color: #111827;
+      box-shadow: 0 10px 25px rgba(250, 204, 21, 0.5);
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 12px 25px rgba(79, 70, 229, 0.9);
+      box-shadow: 0 16px 35px rgba(250, 204, 21, 0.75);
     }
 
     .btn-secondary {
-      background: rgba(31, 41, 55, 0.9);
+      background: rgba(17, 24, 39, 0.95);
       color: #e5e7eb;
+      border: 1px solid rgba(55, 65, 81, 0.9);
     }
 
     .btn-secondary:hover {
-      background: rgba(55, 65, 81, 1);
+      background: rgba(31, 41, 55, 1);
     }
 
     .btn-danger {
@@ -265,7 +294,19 @@
       background: rgba(248, 113, 113, 0.35);
     }
 
-    /* Etiquetas / categorías */
+    .btn-toggle-view {
+      font-size: 0.78rem;
+      padding: 5px 10px;
+    }
+
+    .btn-toggle-view.active {
+      border-color: rgba(250, 204, 21, 0.9);
+      background: rgba(24, 24, 27, 0.95);
+      color: #fefce8;
+      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.6);
+    }
+
+    /* Etiquetas / categorías (tonos tipo finanzas) */
 
     .tag-pill {
       display: inline-flex;
@@ -275,7 +316,7 @@
       font-size: 0.75rem;
       border: 1px solid transparent;
       cursor: pointer;
-      background: rgba(31, 41, 55, 0.9);
+      background: rgba(17, 24, 39, 0.9);
       color: #e5e7eb;
       gap: 5px;
       margin: 2px 4px 2px 0;
@@ -288,14 +329,96 @@
       background: currentColor;
     }
 
-    .tag-doctores { color: #f97373; }
-    .tag-facturacion { color: #38bdf8; }
-    .tag-contabilidad { color: #a855f7; }
-    .tag-impuestos { color: #facc15; }
-    .tag-banco { color: #22c55e; }
-    .tag-liquidaciones { color: #f97316; }
-    .tag-personal { color: #f9a8d4; }
-    .tag-seguros { color: #67e8f9; }
+    .tag-doctores { color: #fb7185; }      /* rosa médico */
+    .tag-facturacion { color: #38bdf8; }   /* azul facturas */
+    .tag-contabilidad { color: #a855f7; }  /* violeta contabilidad */
+    .tag-impuestos { color: #facc15; }     /* dorado impuestos */
+    .tag-banco { color: #22c55e; }         /* verde banco */
+    .tag-liquidaciones { color: #f97316; } /* naranja liquidaciones */
+    .tag-personal { color: #f9a8d4; }      /* rosa personal */
+    .tag-seguros { color: #67e8f9; }       /* cian seguros */
+
+    /* Panel recordatorios */
+
+    .reminders {
+      margin-bottom: 10px;
+      border-radius: var(--radius);
+      padding: 10px 10px 8px;
+      background: radial-gradient(circle at top left, #020617 0, #020617 70%);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .reminders-title {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .reminders-subtitle {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .reminders-group-title {
+      font-size: 0.78rem;
+      color: #f9fafb;
+      margin-top: 4px;
+      margin-bottom: 3px;
+    }
+
+    .reminders-list {
+      list-style: none;
+      font-size: 0.75rem;
+      margin-left: 4px;
+    }
+
+    .reminder-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 3px 8px;
+      cursor: pointer;
+      border-radius: 999px;
+      align-items: center;
+      margin-bottom: 2px;
+      border: 1px solid transparent;
+    }
+
+    .reminder-item span.title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .reminder-item span.time {
+      color: #f9fafb;
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+
+    .reminders-empty {
+      font-size: 0.75rem;
+      color: #6b7280;
+      padding: 2px 0 4px;
+    }
+
+    /* Colores del fondo de recordatorios según etiqueta */
+
+    .reminder-doctores   { background: rgba(248, 113, 150, 0.15); border-color: rgba(248, 113, 150, 0.4);}
+    .reminder-facturacion{ background: rgba(56, 189, 248, 0.15);  border-color: rgba(56, 189, 248, 0.4);}
+    .reminder-contabilidad{background: rgba(168, 85, 247, 0.18);  border-color: rgba(168, 85, 247, 0.45);}
+    .reminder-impuestos  { background: rgba(250, 204, 21, 0.15);  border-color: rgba(250, 204, 21, 0.5);}
+    .reminder-banco      { background: rgba(34, 197, 94, 0.15);   border-color: rgba(34, 197, 94, 0.45);}
+    .reminder-liquidaciones{background: rgba(249, 115, 22, 0.18); border-color: rgba(249, 115, 22, 0.5);}
+    .reminder-personal   { background: rgba(244, 114, 182, 0.18); border-color: rgba(244, 114, 182, 0.45);}
+    .reminder-seguros    { background: rgba(45, 212, 191, 0.15);  border-color: rgba(45, 212, 191, 0.45);}
+
+    /* Toolbar y stats */
 
     .toolbar {
       display: flex;
@@ -339,7 +462,11 @@
     }
 
     .filter-select {
-      max-width: 160px;
+      max-width: 170px;
+    }
+
+    select.filter-select {
+      font-size: 0.8rem;
     }
 
     .stats {
@@ -351,68 +478,25 @@
       margin-top: 4px;
     }
 
-    /* Panel de recordatorios */
+    /* Vistas: semana / día  */
 
-    .reminders {
-      margin-bottom: 10px;
-      border-radius: var(--radius);
-      padding: 10px;
-      background: radial-gradient(circle at top left, #020617, #020617 70%);
-      border: 1px solid rgba(55, 65, 81, 0.9);
+    .view-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 3px;
+      background: rgba(12, 20, 38, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      gap: 3px;
     }
 
-    .reminders-title {
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #9ca3af;
-      margin-bottom: 6px;
-    }
-
-    .reminders-group-title {
-      font-size: 0.78rem;
-      color: #e5e7eb;
-      margin-top: 4px;
-      margin-bottom: 3px;
-    }
-
-    .reminders-list {
-      list-style: none;
-      font-size: 0.75rem;
-      color: #d1d5db;
-      margin-left: 4px;
-    }
-
-    .reminder-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      padding: 2px 0;
-      cursor: pointer;
-    }
-
-    .reminder-item span.title {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .reminder-item span.time {
-      color: #9ca3af;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .reminders-empty {
-      font-size: 0.75rem;
-      color: #6b7280;
-    }
+    /* Calendario semanal */
 
     .week-grid {
       margin-top: 10px;
       border-radius: var(--radius);
       overflow: hidden;
       border: 1px solid rgba(31, 41, 55, 1);
-      background: radial-gradient(circle at top left, #020617, #020617 60%);
+      background: radial-gradient(circle at top left, #020617 0, #020617 60%);
       box-shadow:
         0 18px 40px rgba(15, 23, 42, 0.9),
         0 0 0 1px rgba(15, 23, 42, 0.9);
@@ -424,26 +508,29 @@
       font-size: 0.75rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      background: rgba(15, 23, 42, 0.95);
+      background: rgba(15, 23, 42, 0.98);
       border-bottom: 1px solid rgba(31, 41, 55, 1);
     }
 
     .week-header div {
       padding: 10px 8px;
       border-right: 1px solid rgba(31, 41, 55, 1);
-      color: #9ca3af;
+      color: #d1d5db;
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
 
+    .day-name { font-weight: 500; }
+    .day-date { font-size: 0.78rem; color: #9ca3af; }
+
     .today-pill {
       font-size: 0.65rem;
       padding: 2px 6px;
       border-radius: 999px;
-      background: rgba(79, 70, 229, 0.2);
-      color: #6366f1;
-      border: 1px solid rgba(79, 70, 229, 0.8);
+      background: rgba(250, 204, 21, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(250, 204, 21, 0.7);
       align-self: flex-start;
       margin-top: 3px;
     }
@@ -460,7 +547,7 @@
       padding: 4px 6px;
       border-right: 1px solid rgba(31, 41, 55, 1);
       border-bottom: 1px solid rgba(31, 41, 55, 1);
-      color: #4b5563;
+      color: #6b7280;
       display: flex;
       align-items: flex-start;
       justify-content: flex-end;
@@ -475,12 +562,74 @@
       background: rgba(15, 23, 42, 0.96);
     }
 
+    /* Vista diaria: lista vertical */
+
+    .day-view {
+      margin-top: 10px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(31, 41, 55, 1);
+      background: radial-gradient(circle at top, #020617 0, #020617 60%);
+      overflow: hidden;
+    }
+
+    .day-view-header {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(31, 41, 55, 1);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.85rem;
+    }
+
+    .day-view-header-main {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .day-view-header-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .day-view-body {
+      max-height: 520px;
+      overflow: auto;
+    }
+
+    .day-slot {
+      border-top: 1px solid rgba(31, 41, 55, 1);
+      display: flex;
+      align-items: flex-start;
+      padding: 6px 10px 6px;
+      gap: 8px;
+    }
+
+    .day-slot:first-child {
+      border-top: none;
+    }
+
+    .day-slot-hour {
+      width: 54px;
+      font-size: 0.75rem;
+      color: #6b7280;
+      text-align: right;
+      padding-top: 3px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .day-slot-events {
+      flex: 1;
+      min-height: 22px;
+    }
+
+    /* Event chips */
+
     .event-chip {
       position: relative;
       display: block;
       padding: 4px 6px;
       border-radius: 7px;
-      background: rgba(31, 41, 55, 0.95);
+      background: rgba(17, 24, 39, 0.96);
       border: 1px solid rgba(51, 65, 85, 0.95);
       margin-bottom: 3px;
       cursor: pointer;
@@ -499,8 +648,8 @@
 
     .event-chip:hover {
       transform: translateY(-0.5px);
-      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.9);
-      border-color: rgba(148, 163, 184, 0.9);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.9);
+      border-color: rgba(250, 204, 21, 0.7);
     }
 
     .event-chip-title {
@@ -566,7 +715,7 @@
       text-align: center;
       font-size: 0.8rem;
       color: #6b7280;
-      padding: 14px 6px;
+      padding: 10px 6px 12px;
     }
 
     @media (max-width: 900px) {
@@ -590,10 +739,12 @@
       }
     }
 
+    /* Modal detalle */
+
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.9);
+      background: rgba(3, 7, 18, 0.92);
       display: none;
       align-items: center;
       justify-content: center;
@@ -602,14 +753,14 @@
 
     .modal {
       width: 100%;
-      max-width: 400px;
-      background: radial-gradient(circle at top left, #020617, #020617 70%);
-      border-radius: 16px;
+      max-width: 420px;
+      background: radial-gradient(circle at top left, #020617 0, #020617 70%);
+      border-radius: 18px;
       border: 1px solid rgba(55, 65, 81, 1);
       padding: 16px 16px 12px;
       box-shadow:
-        0 24px 50px rgba(0, 0, 0, 0.85),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
+        0 24px 50px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.95);
       animation: fadeIn 0.15s ease-out;
     }
 
@@ -658,6 +809,27 @@
     .modal-footer-right {
       display: flex;
       gap: 6px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #e5e7eb;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
     }
 
     .btn-icon {
@@ -709,12 +881,19 @@
   <div class="app">
     <header class="app-header">
       <div class="app-title">
-        <h1>Agenda Semanal</h1>
-        <span>Organiza tu semana por etiqueta, marca lo hecho y revisa tus pendientes.</span>
+        <h1><span class="accent">Tareas Finanzas</span> – IDB</h1>
+        <span class="subtitle">
+          Agenda de finanzas para clínica de cirugía y medicina estética:
+          facturación, impuestos, bancos, personal y más.
+        </span>
+        <span class="title-pill">
+          <span class="title-pill-dot"></span>
+          Responsable de finanzas · Clínica IDB
+        </span>
       </div>
       <div class="app-date">
-        <div id="headerTodayLabel"></div>
-        <div id="headerWeekRange" style="font-size: 0.8rem; color:#6b7280;"></div>
+        <span class="app-date-main" id="headerTodayLabel"></span>
+        <span class="app-date-sub" id="headerWeekRange"></span>
       </div>
     </header>
 
@@ -722,8 +901,8 @@
       <!-- PANEL IZQUIERDO -->
       <section class="panel">
         <div class="section-title">
-          <h2>Nuevo evento</h2>
-          <span id="editIndicator" style="display:none;">Editando evento</span>
+          <h2>Nueva tarea / cita</h2>
+          <span id="editIndicator" style="display:none;">Editando tarea</span>
         </div>
 
         <form id="eventForm">
@@ -732,7 +911,7 @@
           <div class="field-row">
             <div class="field" style="flex:2;">
               <label for="titulo">Título</label>
-              <input type="text" id="titulo" placeholder="Ejemplo: Reunión con asesor" required />
+              <input type="text" id="titulo" placeholder="Ej.: Liquidación IVA Q4, revisión seguros médicos..." required />
             </div>
           </div>
 
@@ -773,14 +952,20 @@
 
           <div class="field-row">
             <div class="field">
-              <label for="fechaRealizacion">Fecha de realización</label>
+              <label for="fechaRealizacion">
+                Fecha de realización
+                <span class="muted">(cuando se completa)</span>
+              </label>
               <input type="date" id="fechaRealizacion" />
             </div>
           </div>
 
           <div class="field">
-            <label for="descripcion">Detalles</label>
-            <textarea id="descripcion" placeholder="Datos importantes, contactos, recordatorios..."></textarea>
+            <label for="descripcion">
+              Detalles
+              <span class="muted">(datos, importes, contactos, bancos...)</span>
+            </label>
+            <textarea id="descripcion" placeholder="Ej.: importe, nº de factura, banco implicado, proveedor, notas internas..."></textarea>
           </div>
 
           <div>
@@ -815,14 +1000,14 @@
 
           <div class="form-footer">
             <div class="hint">
-              Los eventos se guardan en este navegador. Marca estado y fecha de realización si ya está hecho.
+              Todo se guarda localmente en este navegador. Usa “Hecho” y fecha de realización para controlar cierres.
             </div>
             <div class="buttons">
               <button type="button" class="btn-secondary" id="limpiarBtn">
                 Cancelar
               </button>
               <button type="submit" class="btn-primary">
-                <span id="submitLabel">Guardar evento</span>
+                <span id="submitLabel">Guardar tarea</span>
               </button>
             </div>
           </div>
@@ -833,20 +1018,33 @@
       <section class="panel">
         <!-- RECORDATORIOS -->
         <div class="reminders" id="remindersPanel">
-          <div class="reminders-title">Recordatorios rápidos (solo pendientes)</div>
+          <div class="reminders-title">
+            <span>Recordatorios pendientes</span>
+            <span class="reminders-subtitle">Vencidos · Hoy · Mañana</span>
+          </div>
           <div id="remindersContent"></div>
         </div>
 
         <div class="section-title">
-          <h2>Semana</h2>
-          <span>Vista semanal interactiva</span>
+          <h2>Agenda</h2>
+          <span>Vista semanal o diaria</span>
         </div>
 
         <div class="toolbar">
-          <div class="date-controls">
-            <button type="button" id="prevWeekBtn">◀</button>
-            <button type="button" id="todayBtn">Hoy</button>
-            <button type="button" id="nextWeekBtn">▶</button>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <div class="date-controls">
+              <button type="button" id="prevWeekBtn">◀</button>
+              <button type="button" id="todayBtn">Hoy</button>
+              <button type="button" id="nextWeekBtn">▶</button>
+            </div>
+            <div class="view-toggle">
+              <button type="button" class="btn-secondary btn-toggle-view active" id="viewWeekBtn">
+                Semana
+              </button>
+              <button type="button" class="btn-secondary btn-toggle-view" id="viewDayBtn">
+                Día
+              </button>
+            </div>
           </div>
           <div class="filter-bar">
             <select id="filterCategoria" class="filter-select">
@@ -872,9 +1070,21 @@
           <span>Filtrados: <strong id="statsFiltered">0</strong></span>
         </div>
 
-        <div class="week-grid">
+        <!-- Vista SEMANAL -->
+        <div class="week-grid" id="weekView">
           <div class="week-header" id="weekHeader"></div>
           <div class="week-body" id="weekBody"></div>
+        </div>
+
+        <!-- Vista DIARIA -->
+        <div class="day-view" id="dayView" style="display:none;">
+          <div class="day-view-header">
+            <div>
+              <div class="day-view-header-main" id="dayViewMain"></div>
+              <div class="day-view-header-sub" id="dayViewSub"></div>
+            </div>
+          </div>
+          <div class="day-view-body" id="dayViewBody"></div>
         </div>
       </section>
     </div>
@@ -904,7 +1114,7 @@
         </div>
         <div class="modal-footer-right">
           <button type="button" class="btn-secondary" id="modalToggleDoneBtn">
-            Marcar hecho / pendiente
+            Hecho / pendiente
           </button>
           <button type="button" class="btn-secondary" id="modalEditBtn">
             Editar
@@ -918,17 +1128,17 @@
   </div>
 
   <script>
-    const STORAGE_KEY = "agenda_semanal_eventos_v2";
+    const STORAGE_KEY = "agenda_finanzas_idb_v1";
 
     const CATEGORIES = {
-      doctores: { label: "Doctores", class: "tag-doctores" },
-      facturacion: { label: "Facturación", class: "tag-facturacion" },
-      contabilidad: { label: "Contabilidad", class: "tag-contabilidad" },
-      impuestos: { label: "Impuestos", class: "tag-impuestos" },
-      banco: { label: "Banco", class: "tag-banco" },
-      liquidaciones: { label: "Liquidaciones", class: "tag-liquidaciones" },
-      personal: { label: "Personal / Nómina", class: "tag-personal" },
-      seguros: { label: "Seguros", class: "tag-seguros" }
+      doctores: { label: "Doctores", class: "tag-doctores", rClass:"reminder-doctores" },
+      facturacion: { label: "Facturación", class: "tag-facturacion", rClass:"reminder-facturacion" },
+      contabilidad: { label: "Contabilidad", class: "tag-contabilidad", rClass:"reminder-contabilidad" },
+      impuestos: { label: "Impuestos", class: "tag-impuestos", rClass:"reminder-impuestos" },
+      banco: { label: "Banco", class: "tag-banco", rClass:"reminder-banco" },
+      liquidaciones: { label: "Liquidaciones", class: "tag-liquidaciones", rClass:"reminder-liquidaciones" },
+      personal: { label: "Personal / Nómina", class: "tag-personal", rClass:"reminder-personal" },
+      seguros: { label: "Seguros", class: "tag-seguros", rClass:"reminder-seguros" }
     };
 
     const HOURS = Array.from({ length: 13 }, (_, i) => 8 + i); // 08–20
@@ -985,6 +1195,7 @@
 
     let currentWeekStart = getWeekStart(new Date());
     let currentFilterCategory = "";
+    let currentView = "week"; // "week" o "day"
 
     const weekHeaderEl = document.getElementById("weekHeader");
     const weekBodyEl = document.getElementById("weekBody");
@@ -993,8 +1204,15 @@
     const statsFilteredEl = document.getElementById("statsFiltered");
     const headerTodayLabelEl = document.getElementById("headerTodayLabel");
     const headerWeekRangeEl = document.getElementById("headerWeekRange");
-
     const remindersContentEl = document.getElementById("remindersContent");
+
+    const weekViewEl = document.getElementById("weekView");
+    const dayViewEl = document.getElementById("dayView");
+    const dayViewMainEl = document.getElementById("dayViewMain");
+    const dayViewSubEl = document.getElementById("dayViewSub");
+    const dayViewBodyEl = document.getElementById("dayViewBody");
+    const viewWeekBtn = document.getElementById("viewWeekBtn");
+    const viewDayBtn = document.getElementById("viewDayBtn");
 
     const formEl = document.getElementById("eventForm");
     const tituloEl = document.getElementById("titulo");
@@ -1164,13 +1382,64 @@
         const row = document.createElement("div");
         row.className = "empty-label";
         row.textContent =
-          "No hay eventos esta semana. Crea uno con el formulario de la izquierda.";
+          "No hay tareas esta semana. Crea una nueva a la izquierda.";
         row.style.gridColumn = `1 / span 8`;
         weekBodyEl.appendChild(row);
       }
     }
 
-    // ----- RECORDATORIOS: hoy, mañana, vencidos -----
+    // ---- Vista diaria ----
+    function renderDayView() {
+      const selectedDate = fechaEl.value || formatDateISO(new Date());
+      const d = new Date(selectedDate + "T00:00:00");
+      dayViewMainEl.textContent = d.toLocaleDateString("es-ES", {
+        weekday: "long",
+        day: "2-digit",
+        month: "long"
+      });
+      dayViewSubEl.textContent = d.getFullYear();
+
+      const all = sortEvents(readEvents());
+      const dayEvents = all.filter(ev => ev.fecha === selectedDate);
+      dayViewBodyEl.innerHTML = "";
+
+      if (!dayEvents.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty-label";
+        empty.textContent = "No hay tareas para este día.";
+        dayViewBodyEl.appendChild(empty);
+        return;
+      }
+
+      const byHour = {};
+      dayEvents.forEach(ev => {
+        const hour = ev.hora.slice(0, 2);
+        if (!byHour[hour]) byHour[hour] = [];
+        byHour[hour].push(ev);
+      });
+
+      HOURS.forEach(h => {
+        const hStr = String(h).padStart(2, "0");
+        const slot = document.createElement("div");
+        slot.className = "day-slot";
+
+        const hourLabel = document.createElement("div");
+        hourLabel.className = "day-slot-hour";
+        hourLabel.textContent = `${hStr}:00`;
+
+        const evContainer = document.createElement("div");
+        evContainer.className = "day-slot-events";
+
+        const evs = byHour[hStr] || [];
+        evs.forEach(ev => evContainer.appendChild(createEventChip(ev)));
+
+        slot.appendChild(hourLabel);
+        slot.appendChild(evContainer);
+        dayViewBodyEl.appendChild(slot);
+      });
+    }
+
+    // ----- RECORDATORIOS: pendientes, coloreados por etiqueta -----
     function renderReminders() {
       const all = sortEvents(readEvents()).filter(ev => ev.estado !== "hecho");
       const today = new Date();
@@ -1194,7 +1463,7 @@
 
       if (!hasAny) {
         remindersContentEl.innerHTML =
-          '<div class="reminders-empty">No tienes tareas pendientes para hoy, mañana ni vencidas.</div>';
+          '<div class="reminders-empty">Sin pendientes vencidos, de hoy o mañana.</div>';
         return;
       }
 
@@ -1203,9 +1472,10 @@
         const items = lista
           .map(ev => {
             const cat = CATEGORIES[ev.categoria];
-            const catLabel = cat ? ` [${cat.label}]` : "";
+            const catLabel = cat ? ` · ${cat.label}` : "";
+            const rClass = cat && cat.rClass ? cat.rClass : "";
             return `
-              <li class="reminder-item" data-id="${ev.id}">
+              <li class="reminder-item ${rClass}" data-id="${ev.id}">
                 <span class="title">${ev.titulo}${catLabel}</span>
                 <span class="time">${ev.hora}</span>
               </li>`;
@@ -1240,12 +1510,13 @@
       renderWeekHeader();
       renderWeekBody();
       renderReminders();
+      if (currentView === "day") renderDayView();
     }
 
     function resetForm() {
       formEl.reset();
       editIdEl.value = "";
-      submitLabelEl.textContent = "Guardar evento";
+      submitLabelEl.textContent = "Guardar tarea";
       editIndicatorEl.style.display = "none";
       setTodayAsDefault();
       estadoEl.value = "pendiente";
@@ -1263,9 +1534,10 @@
       fechaRealizacionEl.value = ev.fechaRealizacion || "";
       descEl.value = ev.descripcion || "";
       editIdEl.value = ev.id;
-      submitLabelEl.textContent = "Actualizar evento";
+      submitLabelEl.textContent = "Actualizar tarea";
       editIndicatorEl.style.display = "inline";
       window.scrollTo({ top: 0, behavior: "smooth" });
+      if (currentView === "day") renderDayView();
     }
 
     formEl.addEventListener("submit", e => {
@@ -1329,19 +1601,43 @@
     });
     document.getElementById("todayBtn").addEventListener("click", () => {
       currentWeekStart = getWeekStart(new Date());
+      setTodayAsDefault();
       renderAll();
     });
 
     filterSelectEl.addEventListener("change", () => {
       currentFilterCategory = filterSelectEl.value;
       renderWeekBody();
+      if (currentView === "day") renderDayView();
     });
     document.getElementById("clearFilterBtn").addEventListener("click", () => {
       currentFilterCategory = "";
       filterSelectEl.value = "";
       renderWeekBody();
+      if (currentView === "day") renderDayView();
     });
 
+    // Cambiar vista semana/día
+    function setView(view) {
+      currentView = view;
+      if (view === "week") {
+        weekViewEl.style.display = "";
+        dayViewEl.style.display = "none";
+        viewWeekBtn.classList.add("active");
+        viewDayBtn.classList.remove("active");
+      } else {
+        weekViewEl.style.display = "none";
+        dayViewEl.style.display = "";
+        viewWeekBtn.classList.remove("active");
+        viewDayBtn.classList.add("active");
+        renderDayView();
+      }
+    }
+
+    viewWeekBtn.addEventListener("click", () => setView("week"));
+    viewDayBtn.addEventListener("click", () => setView("day"));
+
+    // Modal
     function openModal(id) {
       modalCurrentId = id;
       const events = readEvents();
@@ -1354,7 +1650,7 @@
       modalDescEl.textContent =
         ev.descripcion && ev.descripcion.trim()
           ? ev.descripcion
-          : "Sin descripción adicional.";
+          : "Sin detalles adicionales.";
 
       const catInfo = CATEGORIES[ev.categoria];
       if (catInfo) {
@@ -1402,7 +1698,7 @@
 
     modalDeleteBtn.addEventListener("click", () => {
       if (!modalCurrentId) return;
-      if (!confirm("¿Seguro que quieres eliminar este evento?")) return;
+      if (!confirm("¿Seguro que quieres eliminar esta tarea?")) return;
       let events = readEvents();
       events = events.filter(ev => ev.id !== modalCurrentId);
       saveEvents(events);
