@@ -12,7 +12,6 @@
       --bg-soft: #0b0b10;
       --card: #050509;
       --card-soft: #111119;
-      /* Morado principal */
       --accent: #a855f7;
       --accent-soft: rgba(168, 85, 247, 0.12);
       --border: #262630;
@@ -141,16 +140,78 @@
       color: var(--muted);
     }
 
+    /* Acordeón formulario */
+
+    .accordion {
+      border-radius: var(--radius);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(circle at top left, #020617 0, #020617 65%);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .accordion-header {
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .accordion-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #e5e7eb;
+    }
+
+    .accordion-title span.plus {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left, #a855f7, #7c3aed);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: #f9fafb;
+    }
+
+    .accordion-sub {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .accordion-arrow {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      transition: transform 0.15s;
+    }
+
+    .accordion-header.open .accordion-arrow {
+      transform: rotate(90deg);
+    }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease;
+    }
+
+    .accordion-body-inner {
+      padding: 10px 12px 12px;
+    }
+
     /* Formulario */
 
     form {
       display: flex;
       flex-direction: column;
       gap: 12px;
-      background: radial-gradient(circle at top left, #020617 0, #020617 60%);
-      border-radius: var(--radius);
-      padding: 14px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
     }
 
     .field-row {
@@ -312,6 +373,8 @@
     .tag-personal      { color: #f9a8d4; }
     .tag-seguros       { color: #67e8f9; }
     .tag-proveedores   { color: #f472b6; }
+    .tag-otros         { color: #9ca3af; }
+    .tag-vacaciones    { color: #22c55e; }
 
     /* Panel recordatorios */
 
@@ -393,6 +456,8 @@
     .reminder-personal      { background: rgba(244, 114, 182, 0.18); border-color: rgba(244, 114, 182, 0.45);}
     .reminder-seguros       { background: rgba(45, 212, 191, 0.15);  border-color: rgba(45, 212, 191, 0.45);}
     .reminder-proveedores   { background: rgba(244, 114, 182, 0.18); border-color: rgba(244, 114, 182, 0.45);}
+    .reminder-otros         { background: rgba(75, 85, 99, 0.2);     border-color: rgba(75, 85, 99, 0.5);}
+    .reminder-vacaciones    { background: rgba(22, 163, 74, 0.18);   border-color: rgba(22, 163, 74, 0.5);}
 
     /* Toolbar y stats */
 
@@ -429,6 +494,20 @@
       background: rgba(55, 65, 81, 0.8);
     }
 
+    .date-select-day {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .date-select-day input[type="date"] {
+      padding: 4px 8px;
+      font-size: 0.78rem;
+      border-radius: 999px;
+    }
+
     .filter-bar {
       display: flex;
       align-items: center;
@@ -438,7 +517,7 @@
     }
 
     .filter-select {
-      max-width: 180px;
+      max-width: 190px;
     }
 
     select.filter-select {
@@ -560,6 +639,7 @@
     .day-view-header-main {
       font-weight: 500;
       color: #e5e7eb;
+      text-transform: capitalize;
     }
 
     .day-view-header-sub {
@@ -868,122 +948,145 @@
     <div class="app-body">
       <!-- PANEL IZQUIERDO -->
       <section class="panel">
-        <div class="section-title">
-          <h2>Nueva tarea / cita</h2>
-          <span id="editIndicator" style="display:none;">Editando tarea</span>
+        <!-- Acordeón nueva tarea -->
+        <div class="accordion">
+          <div class="accordion-header" id="accordionHeader">
+            <div class="accordion-title">
+              <span class="plus">+</span>
+              Nueva tarea / cita
+            </div>
+            <div class="accordion-arrow">▶</div>
+          </div>
+          <div class="accordion-body" id="accordionBody">
+            <div class="accordion-body-inner">
+              <form id="eventForm">
+                <input type="hidden" id="editId" />
+
+                <div class="field-row">
+                  <div class="field" style="flex:2;">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" placeholder="Ej.: Liquidación IVA, pago proveedores, vacaciones..." required />
+                  </div>
+                </div>
+
+                <div class="field-row">
+                  <div class="field">
+                    <label for="fecha">Fecha cita/tarea</label>
+                    <input type="date" id="fecha" required />
+                  </div>
+                  <div class="field">
+                    <label for="hora">Hora</label>
+                    <input type="time" id="hora" required />
+                  </div>
+                </div>
+
+                <div class="field-row">
+                  <div class="field">
+                    <label for="categoria">Etiqueta / Tipo</label>
+                    <select id="categoria" required>
+                      <option value="">Selecciona una etiqueta</option>
+                      <option value="doctores">Doctores</option>
+                      <option value="facturacion">Facturación</option>
+                      <option value="contabilidad">Contabilidad</option>
+                      <option value="impuestos">Impuestos</option>
+                      <option value="banco">Banco</option>
+                      <option value="liquidaciones">Liquidaciones</option>
+                      <option value="personal">Personal / Nómina</option>
+                      <option value="seguros">Seguros</option>
+                      <option value="proveedores">Proveedores</option>
+                      <option value="vacaciones">Vacaciones</option>
+                      <option value="otros">Otros</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="estado">Estado</label>
+                    <select id="estado" required>
+                      <option value="pendiente">Pendiente</option>
+                      <option value="hecho">Hecho</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field-row">
+                  <div class="field">
+                    <label for="fechaRealizacion">
+                      Fecha de realización
+                      <span class="muted">(cuando se completa)</span>
+                    </label>
+                    <input type="date" id="fechaRealizacion" />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="descripcion">
+                    Detalles
+                    <span class="muted">(datos, importes, contactos, bancos...)</span>
+                  </label>
+                  <textarea id="descripcion" placeholder="Ej.: importe, nº de factura, banco implicado, proveedor, notas internas..."></textarea>
+                </div>
+
+                <div>
+                  <label>Atajos de etiqueta</label>
+                  <div>
+                    <button type="button" class="tag-pill tag-doctores" data-tag="doctores">
+                      <span class="dot"></span> Doctores
+                    </button>
+                    <button type="button" class="tag-pill tag-facturacion" data-tag="facturacion">
+                      <span class="dot"></span> Facturación
+                    </button>
+                    <button type="button" class="tag-pill tag-contabilidad" data-tag="contabilidad">
+                      <span class="dot"></span> Contabilidad
+                    </button>
+                    <button type="button" class="tag-pill tag-impuestos" data-tag="impuestos">
+                      <span class="dot"></span> Impuestos
+                    </button>
+                    <button type="button" class="tag-pill tag-banco" data-tag="banco">
+                      <span class="dot"></span> Banco
+                    </button>
+                    <button type="button" class="tag-pill tag-liquidaciones" data-tag="liquidaciones">
+                      <span class="dot"></span> Liquidaciones
+                    </button>
+                    <button type="button" class="tag-pill tag-personal" data-tag="personal">
+                      <span class="dot"></span> Personal / Nómina
+                    </button>
+                    <button type="button" class="tag-pill tag-seguros" data-tag="seguros">
+                      <span class="dot"></span> Seguros
+                    </button>
+                    <button type="button" class="tag-pill tag-proveedores" data-tag="proveedores">
+                      <span class="dot"></span> Proveedores
+                    </button>
+                    <button type="button" class="tag-pill tag-vacaciones" data-tag="vacaciones">
+                      <span class="dot"></span> Vacaciones
+                    </button>
+                    <button type="button" class="tag-pill tag-otros" data-tag="otros">
+                      <span class="dot"></span> Otros
+                    </button>
+                  </div>
+                </div>
+
+                <div class="form-footer">
+                  <div class="hint">
+                    Todo se guarda localmente en este navegador.
+                  </div>
+                  <div class="buttons">
+                    <button type="button" class="btn-secondary" id="limpiarBtn">
+                      Cancelar
+                    </button>
+                    <button type="submit" class="btn-primary">
+                      <span id="submitLabel">Guardar tarea</span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
 
-        <form id="eventForm">
-          <input type="hidden" id="editId" />
-
-          <div class="field-row">
-            <div class="field" style="flex:2;">
-              <label for="titulo">Título</label>
-              <input type="text" id="titulo" placeholder="Ej.: Liquidación IVA, pago proveedores, revisión seguros..." required />
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="fecha">Fecha cita/tarea</label>
-              <input type="date" id="fecha" required />
-            </div>
-            <div class="field">
-              <label for="hora">Hora</label>
-              <input type="time" id="hora" required />
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="categoria">Etiqueta / Tipo</label>
-              <select id="categoria" required>
-                <option value="">Selecciona una etiqueta</option>
-                <option value="doctores">Doctores</option>
-                <option value="facturacion">Facturación</option>
-                <option value="contabilidad">Contabilidad</option>
-                <option value="impuestos">Impuestos</option>
-                <option value="banco">Banco</option>
-                <option value="liquidaciones">Liquidaciones</option>
-                <option value="personal">Personal / Nómina</option>
-                <option value="seguros">Seguros</option>
-                <option value="proveedores">Proveedores</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="estado">Estado</label>
-              <select id="estado" required>
-                <option value="pendiente">Pendiente</option>
-                <option value="hecho">Hecho</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="fechaRealizacion">
-                Fecha de realización
-                <span class="muted">(cuando se completa)</span>
-              </label>
-              <input type="date" id="fechaRealizacion" />
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="descripcion">
-              Detalles
-              <span class="muted">(datos, importes, contactos, bancos...)</span>
-            </label>
-            <textarea id="descripcion" placeholder="Ej.: importe, nº de factura, banco implicado, proveedor, notas internas..."></textarea>
-          </div>
-
-          <div>
-            <label>Atajos de etiqueta</label>
-            <div>
-              <button type="button" class="tag-pill tag-doctores" data-tag="doctores">
-                <span class="dot"></span> Doctores
-              </button>
-              <button type="button" class="tag-pill tag-facturacion" data-tag="facturacion">
-                <span class="dot"></span> Facturación
-              </button>
-              <button type="button" class="tag-pill tag-contabilidad" data-tag="contabilidad">
-                <span class="dot"></span> Contabilidad
-              </button>
-              <button type="button" class="tag-pill tag-impuestos" data-tag="impuestos">
-                <span class="dot"></span> Impuestos
-              </button>
-              <button type="button" class="tag-pill tag-banco" data-tag="banco">
-                <span class="dot"></span> Banco
-              </button>
-              <button type="button" class="tag-pill tag-liquidaciones" data-tag="liquidaciones">
-                <span class="dot"></span> Liquidaciones
-              </button>
-              <button type="button" class="tag-pill tag-personal" data-tag="personal">
-                <span class="dot"></span> Personal / Nómina
-              </button>
-              <button type="button" class="tag-pill tag-seguros" data-tag="seguros">
-                <span class="dot"></span> Seguros
-              </button>
-              <button type="button" class="tag-pill tag-proveedores" data-tag="proveedores">
-                <span class="dot"></span> Proveedores
-              </button>
-            </div>
-          </div>
-
-          <div class="form-footer">
-            <div class="hint">
-              Todo se guarda localmente en este navegador. Usa “Hecho” y fecha de realización para controlar cierres.
-            </div>
-            <div class="buttons">
-              <button type="button" class="btn-secondary" id="limpiarBtn">
-                Cancelar
-              </button>
-              <button type="submit" class="btn-primary">
-                <span id="submitLabel">Guardar tarea</span>
-              </button>
-            </div>
-          </div>
-        </form>
+        <!-- Indicador de edición -->
+        <div class="section-title" style="margin-top:6px;">
+          <h2>Estado</h2>
+          <span id="editIndicator" style="display:none;">Editando tarea</span>
+        </div>
       </section>
 
       <!-- PANEL DERECHO -->
@@ -1017,6 +1120,10 @@
                 Día
               </button>
             </div>
+            <div class="date-select-day">
+              <span>Día:</span>
+              <input type="date" id="daySelector" />
+            </div>
           </div>
           <div class="filter-bar">
             <select id="filterCategoria" class="filter-select">
@@ -1030,6 +1137,8 @@
               <option value="personal">Personal / Nómina</option>
               <option value="seguros">Seguros</option>
               <option value="proveedores">Proveedores</option>
+              <option value="vacaciones">Vacaciones</option>
+              <option value="otros">Otros</option>
             </select>
             <button type="button" class="btn-secondary" id="clearFilterBtn">
               Limpiar filtro
@@ -1101,7 +1210,7 @@
   </div>
 
   <script>
-    const STORAGE_KEY = "agenda_finanzas_idb_v1";
+    const STORAGE_KEY = "agenda_finanzas_idb_v2";
 
     const CATEGORIES = {
       doctores:     { label: "Doctores", class: "tag-doctores",      rClass:"reminder-doctores" },
@@ -1112,7 +1221,9 @@
       liquidaciones:{ label: "Liquidaciones", class: "tag-liquidaciones", rClass:"reminder-liquidaciones" },
       personal:     { label: "Personal / Nómina", class: "tag-personal", rClass:"reminder-personal" },
       seguros:      { label: "Seguros", class: "tag-seguros",        rClass:"reminder-seguros" },
-      proveedores:  { label: "Proveedores", class: "tag-proveedores", rClass:"reminder-proveedores" }
+      proveedores:  { label: "Proveedores", class: "tag-proveedores", rClass:"reminder-proveedores" },
+      vacaciones:   { label: "Vacaciones", class: "tag-vacaciones",  rClass:"reminder-vacaciones" },
+      otros:        { label: "Otros", class: "tag-otros",            rClass:"reminder-otros" }
     };
 
     const HOURS = Array.from({ length: 13 }, (_, i) => 8 + i); // 08–20
@@ -1187,6 +1298,7 @@
     const dayViewBodyEl = document.getElementById("dayViewBody");
     const viewWeekBtn = document.getElementById("viewWeekBtn");
     const viewDayBtn = document.getElementById("viewDayBtn");
+    const daySelectorEl = document.getElementById("daySelector");
 
     const formEl = document.getElementById("eventForm");
     const tituloEl = document.getElementById("titulo");
@@ -1213,7 +1325,31 @@
     const modalDeleteBtn = document.getElementById("modalDeleteBtn");
     const modalToggleDoneBtn = document.getElementById("modalToggleDoneBtn");
 
+    const accordionHeaderEl = document.getElementById("accordionHeader");
+    const accordionBodyEl = document.getElementById("accordionBody");
+
+    let accordionOpen = false;
     let modalCurrentId = null;
+
+    function toggleAccordion(forceOpen = null) {
+      const content = accordionBodyEl;
+      const header = accordionHeaderEl;
+
+      const shouldOpen = forceOpen !== null ? forceOpen : !accordionOpen;
+      accordionOpen = shouldOpen;
+
+      if (shouldOpen) {
+        const inner = content.querySelector(".accordion-body-inner");
+        const h = inner.scrollHeight;
+        content.style.maxHeight = h + "px";
+        header.classList.add("open");
+      } else {
+        content.style.maxHeight = "0px";
+        header.classList.remove("open");
+      }
+    }
+
+    accordionHeaderEl.addEventListener("click", () => toggleAccordion());
 
     function renderHeader() {
       const today = new Date();
@@ -1356,7 +1492,7 @@
         const row = document.createElement("div");
         row.className = "empty-label";
         row.textContent =
-          "No hay tareas esta semana. Crea una nueva a la izquierda.";
+          "No hay tareas esta semana. Crea una nueva en el panel izquierdo.";
         row.style.gridColumn = `1 / span 8`;
         weekBodyEl.appendChild(row);
       }
@@ -1364,7 +1500,7 @@
 
     // ---- Vista diaria ----
     function renderDayView() {
-      const selectedDate = fechaEl.value || formatDateISO(new Date());
+      const selectedDate = daySelectorEl.value || formatDateISO(new Date());
       const d = new Date(selectedDate + "T00:00:00");
       dayViewMainEl.textContent = d.toLocaleDateString("es-ES", {
         weekday: "long",
@@ -1374,7 +1510,11 @@
       dayViewSubEl.textContent = d.getFullYear();
 
       const all = sortEvents(readEvents());
-      const dayEvents = all.filter(ev => ev.fecha === selectedDate);
+      let dayEvents = all.filter(ev => ev.fecha === selectedDate);
+      if (currentFilterCategory) {
+        dayEvents = dayEvents.filter(ev => ev.categoria === currentFilterCategory);
+      }
+
       dayViewBodyEl.innerHTML = "";
 
       if (!dayEvents.length) {
@@ -1510,6 +1650,7 @@
       editIdEl.value = ev.id;
       submitLabelEl.textContent = "Actualizar tarea";
       editIndicatorEl.style.display = "inline";
+      toggleAccordion(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
       if (currentView === "day") renderDayView();
     }
@@ -1574,8 +1715,10 @@
       renderAll();
     });
     document.getElementById("todayBtn").addEventListener("click", () => {
-      currentWeekStart = getWeekStart(new Date());
+      const today = new Date();
+      currentWeekStart = getWeekStart(today);
       setTodayAsDefault();
+      daySelectorEl.value = formatDateISO(today);
       renderAll();
     });
 
@@ -1588,6 +1731,11 @@
       currentFilterCategory = "";
       filterSelectEl.value = "";
       renderWeekBody();
+      if (currentView === "day") renderDayView();
+    });
+
+    // Selector de día para vista diaria
+    daySelectorEl.addEventListener("change", () => {
       if (currentView === "day") renderDayView();
     });
 
@@ -1704,13 +1852,16 @@
       const y = today.getFullYear();
       const m = String(today.getMonth() + 1).padStart(2, "0");
       const d = String(today.getDate()).padStart(2, "0");
-      fechaEl.value = `${y}-${m}-${d}`;
+      const todayISO = `${y}-${m}-${d}`;
+      fechaEl.value = todayISO;
+      daySelectorEl.value = todayISO;
       const hh = String(today.getHours()).padStart(2, "0");
       const mm = String(today.getMinutes()).padStart(2, "0");
       horaEl.value = `${hh}:${mm}`;
     }
 
     (function init() {
+      toggleAccordion(false); // formulario cerrado al inicio
       setTodayAsDefault();
       estadoEl.value = "pendiente";
       renderAll();
