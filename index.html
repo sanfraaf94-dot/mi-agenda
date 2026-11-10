@@ -351,6 +351,62 @@
       margin-top: 4px;
     }
 
+    /* Panel de recordatorios */
+
+    .reminders {
+      margin-bottom: 10px;
+      border-radius: var(--radius);
+      padding: 10px;
+      background: radial-gradient(circle at top left, #020617, #020617 70%);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .reminders-title {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    .reminders-group-title {
+      font-size: 0.78rem;
+      color: #e5e7eb;
+      margin-top: 4px;
+      margin-bottom: 3px;
+    }
+
+    .reminders-list {
+      list-style: none;
+      font-size: 0.75rem;
+      color: #d1d5db;
+      margin-left: 4px;
+    }
+
+    .reminder-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 2px 0;
+      cursor: pointer;
+    }
+
+    .reminder-item span.title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .reminder-item span.time {
+      color: #9ca3af;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .reminders-empty {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
     .week-grid {
       margin-top: 10px;
       border-radius: var(--radius);
@@ -369,4 +425,1026 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       background: rgba(15, 23, 42, 0.95);
-      border-bottom: 1px solid rgba(31, 41, 55
+      border-bottom: 1px solid rgba(31, 41, 55, 1);
+    }
+
+    .week-header div {
+      padding: 10px 8px;
+      border-right: 1px solid rgba(31, 41, 55, 1);
+      color: #9ca3af;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .today-pill {
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(79, 70, 229, 0.2);
+      color: #6366f1;
+      border: 1px solid rgba(79, 70, 229, 0.8);
+      align-self: flex-start;
+      margin-top: 3px;
+    }
+
+    .week-body {
+      display: grid;
+      grid-template-columns: 60px repeat(7, minmax(0, 1fr));
+      max-height: 520px;
+      overflow: auto;
+      font-size: 0.78rem;
+    }
+
+    .hour-label {
+      padding: 4px 6px;
+      border-right: 1px solid rgba(31, 41, 55, 1);
+      border-bottom: 1px solid rgba(31, 41, 55, 1);
+      color: #4b5563;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
+
+    .cell {
+      border-right: 1px solid rgba(31, 41, 55, 1);
+      border-bottom: 1px solid rgba(31, 41, 55, 1);
+      padding: 2px 2px 4px;
+      min-height: 32px;
+      position: relative;
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .event-chip {
+      position: relative;
+      display: block;
+      padding: 4px 6px;
+      border-radius: 7px;
+      background: rgba(31, 41, 55, 0.95);
+      border: 1px solid rgba(51, 65, 85, 0.95);
+      margin-bottom: 3px;
+      cursor: pointer;
+      color: #e5e7eb;
+      overflow: hidden;
+      transition: transform 0.1s, box-shadow 0.15s, border-color 0.1s,
+        background 0.1s;
+      backdrop-filter: blur(10px);
+    }
+
+    .event-chip.done {
+      opacity: 0.7;
+      border-style: dashed;
+      border-color: rgba(34, 197, 94, 0.9);
+    }
+
+    .event-chip:hover {
+      transform: translateY(-0.5px);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.9);
+    }
+
+    .event-chip-title {
+      font-size: 0.78rem;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .event-chip-meta {
+      font-size: 0.7rem;
+      color: #9ca3af;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1px;
+      gap: 4px;
+    }
+
+    .event-chip-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.9;
+    }
+
+    .event-chip-tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .event-chip-time {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .event-chip-status {
+      font-size: 0.7rem;
+      margin-left: 4px;
+      color: #22c55e;
+    }
+
+    .event-chip-status.pending {
+      color: #f97316;
+    }
+
+    .event-chip-desc {
+      font-size: 0.7rem;
+      color: #9ca3af;
+      margin-top: 2px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .empty-label {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6b7280;
+      padding: 14px 6px;
+    }
+
+    @media (max-width: 900px) {
+      .week-header {
+        grid-template-columns: 45px repeat(7, minmax(0, 1fr));
+      }
+      .week-body {
+        grid-template-columns: 45px repeat(7, minmax(0, 1fr));
+      }
+      .event-chip-desc {
+        display: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .week-header {
+        grid-template-columns: 45px repeat(3, minmax(0, 1fr));
+      }
+      .week-body {
+        grid-template-columns: 45px repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 30;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 400px;
+      background: radial-gradient(circle at top left, #020617, #020617 70%);
+      border-radius: 16px;
+      border: 1px solid rgba(55, 65, 81, 1);
+      padding: 16px 16px 12px;
+      box-shadow:
+        0 24px 50px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      animation: fadeIn 0.15s ease-out;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .modal-title {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .modal-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .modal-desc {
+      font-size: 0.85rem;
+      color: #d1d5db;
+      margin-bottom: 10px;
+      white-space: pre-wrap;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+
+    .modal-footer-left {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .modal-footer-right {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-size: 1rem;
+      background: transparent;
+      color: #9ca3af;
+    }
+
+    .btn-icon:hover {
+      background: rgba(31, 41, 55, 0.9);
+      color: #e5e7eb;
+    }
+
+    .status-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: 1px solid;
+    }
+
+    .status-pill.done {
+      color: #bbf7d0;
+      border-color: #22c55e;
+      background: rgba(34, 197, 94, 0.15);
+    }
+
+    .status-pill.pending {
+      color: #fed7aa;
+      border-color: #f97316;
+      background: rgba(249, 115, 22, 0.12);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="app-title">
+        <h1>Agenda Semanal</h1>
+        <span>Organiza tu semana por etiqueta, marca lo hecho y revisa tus pendientes.</span>
+      </div>
+      <div class="app-date">
+        <div id="headerTodayLabel"></div>
+        <div id="headerWeekRange" style="font-size: 0.8rem; color:#6b7280;"></div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <!-- PANEL IZQUIERDO -->
+      <section class="panel">
+        <div class="section-title">
+          <h2>Nuevo evento</h2>
+          <span id="editIndicator" style="display:none;">Editando evento</span>
+        </div>
+
+        <form id="eventForm">
+          <input type="hidden" id="editId" />
+
+          <div class="field-row">
+            <div class="field" style="flex:2;">
+              <label for="titulo">Título</label>
+              <input type="text" id="titulo" placeholder="Ejemplo: Reunión con asesor" required />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="fecha">Fecha cita/tarea</label>
+              <input type="date" id="fecha" required />
+            </div>
+            <div class="field">
+              <label for="hora">Hora</label>
+              <input type="time" id="hora" required />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="categoria">Etiqueta / Tipo</label>
+              <select id="categoria" required>
+                <option value="">Selecciona una etiqueta</option>
+                <option value="doctores">Doctores</option>
+                <option value="facturacion">Facturación</option>
+                <option value="contabilidad">Contabilidad</option>
+                <option value="impuestos">Impuestos</option>
+                <option value="banco">Banco</option>
+                <option value="liquidaciones">Liquidaciones</option>
+                <option value="personal">Personal / Nómina</option>
+                <option value="seguros">Seguros</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="estado">Estado</label>
+              <select id="estado" required>
+                <option value="pendiente">Pendiente</option>
+                <option value="hecho">Hecho</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="fechaRealizacion">Fecha de realización</label>
+              <input type="date" id="fechaRealizacion" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="descripcion">Detalles</label>
+            <textarea id="descripcion" placeholder="Datos importantes, contactos, recordatorios..."></textarea>
+          </div>
+
+          <div>
+            <label>Atajos de etiqueta</label>
+            <div>
+              <button type="button" class="tag-pill tag-doctores" data-tag="doctores">
+                <span class="dot"></span> Doctores
+              </button>
+              <button type="button" class="tag-pill tag-facturacion" data-tag="facturacion">
+                <span class="dot"></span> Facturación
+              </button>
+              <button type="button" class="tag-pill tag-contabilidad" data-tag="contabilidad">
+                <span class="dot"></span> Contabilidad
+              </button>
+              <button type="button" class="tag-pill tag-impuestos" data-tag="impuestos">
+                <span class="dot"></span> Impuestos
+              </button>
+              <button type="button" class="tag-pill tag-banco" data-tag="banco">
+                <span class="dot"></span> Banco
+              </button>
+              <button type="button" class="tag-pill tag-liquidaciones" data-tag="liquidaciones">
+                <span class="dot"></span> Liquidaciones
+              </button>
+              <button type="button" class="tag-pill tag-personal" data-tag="personal">
+                <span class="dot"></span> Personal / Nómina
+              </button>
+              <button type="button" class="tag-pill tag-seguros" data-tag="seguros">
+                <span class="dot"></span> Seguros
+              </button>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <div class="hint">
+              Los eventos se guardan en este navegador. Marca estado y fecha de realización si ya está hecho.
+            </div>
+            <div class="buttons">
+              <button type="button" class="btn-secondary" id="limpiarBtn">
+                Cancelar
+              </button>
+              <button type="submit" class="btn-primary">
+                <span id="submitLabel">Guardar evento</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- PANEL DERECHO -->
+      <section class="panel">
+        <!-- RECORDATORIOS -->
+        <div class="reminders" id="remindersPanel">
+          <div class="reminders-title">Recordatorios rápidos (solo pendientes)</div>
+          <div id="remindersContent"></div>
+        </div>
+
+        <div class="section-title">
+          <h2>Semana</h2>
+          <span>Vista semanal interactiva</span>
+        </div>
+
+        <div class="toolbar">
+          <div class="date-controls">
+            <button type="button" id="prevWeekBtn">◀</button>
+            <button type="button" id="todayBtn">Hoy</button>
+            <button type="button" id="nextWeekBtn">▶</button>
+          </div>
+          <div class="filter-bar">
+            <select id="filterCategoria" class="filter-select">
+              <option value="">Todas las etiquetas</option>
+              <option value="doctores">Doctores</option>
+              <option value="facturacion">Facturación</option>
+              <option value="contabilidad">Contabilidad</option>
+              <option value="impuestos">Impuestos</option>
+              <option value="banco">Banco</option>
+              <option value="liquidaciones">Liquidaciones</option>
+              <option value="personal">Personal / Nómina</option>
+              <option value="seguros">Seguros</option>
+            </select>
+            <button type="button" class="btn-secondary" id="clearFilterBtn">
+              Limpiar filtro
+            </button>
+          </div>
+        </div>
+
+        <div class="stats">
+          <span>Total semana: <strong id="statsTotal">0</strong></span>
+          <span>|</span>
+          <span>Filtrados: <strong id="statsFiltered">0</strong></span>
+        </div>
+
+        <div class="week-grid">
+          <div class="week-header" id="weekHeader"></div>
+          <div class="week-body" id="weekBody"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- MODAL DETALLE EVENTO -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <div>
+          <div class="modal-title" id="modalTitle"></div>
+          <div class="modal-meta" id="modalMeta"></div>
+        </div>
+        <button type="button" class="btn-icon" id="modalCloseBtn" aria-label="Cerrar">
+          ✕
+        </button>
+      </div>
+      <div class="modal-desc" id="modalDesc"></div>
+      <div class="modal-footer">
+        <div class="modal-footer-left">
+          <span class="badge" id="modalTagBadge">
+            <span class="badge-dot"></span>
+            <span id="modalTagLabel">Etiqueta</span>
+          </span>
+          <span class="status-pill" id="modalStatusPill"></span>
+          <span class="hint" id="modalRealizacionHint"></span>
+        </div>
+        <div class="modal-footer-right">
+          <button type="button" class="btn-secondary" id="modalToggleDoneBtn">
+            Marcar hecho / pendiente
+          </button>
+          <button type="button" class="btn-secondary" id="modalEditBtn">
+            Editar
+          </button>
+          <button type="button" class="btn-danger" id="modalDeleteBtn">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "agenda_semanal_eventos_v2";
+
+    const CATEGORIES = {
+      doctores: { label: "Doctores", class: "tag-doctores" },
+      facturacion: { label: "Facturación", class: "tag-facturacion" },
+      contabilidad: { label: "Contabilidad", class: "tag-contabilidad" },
+      impuestos: { label: "Impuestos", class: "tag-impuestos" },
+      banco: { label: "Banco", class: "tag-banco" },
+      liquidaciones: { label: "Liquidaciones", class: "tag-liquidaciones" },
+      personal: { label: "Personal / Nómina", class: "tag-personal" },
+      seguros: { label: "Seguros", class: "tag-seguros" }
+    };
+
+    const HOURS = Array.from({ length: 13 }, (_, i) => 8 + i); // 08–20
+
+    function readEvents() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      try {
+        const data = JSON.parse(raw);
+        return Array.isArray(data) ? data : [];
+      } catch {
+        return [];
+      }
+    }
+    function saveEvents(events) { localStorage.setItem(STORAGE_KEY, JSON.stringify(events)); }
+    function sortEvents(events) {
+      return events.sort((a, b) => {
+        const ak = a.fecha + " " + a.hora + " " + a.titulo;
+        const bk = b.fecha + " " + b.hora + " " + b.titulo;
+        return ak.localeCompare(bk);
+      });
+    }
+
+    function getWeekStart(date) {
+      const d = new Date(date);
+      const day = d.getDay(); // 0 dom
+      const diff = (day === 0 ? -6 : 1) - day;
+      d.setDate(d.getDate() + diff);
+      d.setHours(0, 0, 0, 0);
+      return d;
+    }
+    function addDays(date, days) { const d = new Date(date); d.setDate(d.getDate() + days); return d; }
+    function formatDateISO(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+    function formatDateHuman(date) {
+      return date.toLocaleDateString("es-ES", {
+        day: "2-digit", month: "short", year: "numeric"
+      });
+    }
+    function formatWeekRange(weekStart) {
+      const s = new Date(weekStart);
+      const e = addDays(s, 6);
+      const o = { day: "2-digit", month: "short" };
+      const ss = s.toLocaleDateString("es-ES", o);
+      const es = e.toLocaleDateString("es-ES", {
+        ...o, year: s.getFullYear() === e.getFullYear() ? undefined : "numeric"
+      });
+      return `${ss} – ${es} · ${e.getFullYear()}`;
+    }
+
+    let currentWeekStart = getWeekStart(new Date());
+    let currentFilterCategory = "";
+
+    const weekHeaderEl = document.getElementById("weekHeader");
+    const weekBodyEl = document.getElementById("weekBody");
+    const filterSelectEl = document.getElementById("filterCategoria");
+    const statsTotalEl = document.getElementById("statsTotal");
+    const statsFilteredEl = document.getElementById("statsFiltered");
+    const headerTodayLabelEl = document.getElementById("headerTodayLabel");
+    const headerWeekRangeEl = document.getElementById("headerWeekRange");
+
+    const remindersContentEl = document.getElementById("remindersContent");
+
+    const formEl = document.getElementById("eventForm");
+    const tituloEl = document.getElementById("titulo");
+    const fechaEl = document.getElementById("fecha");
+    const horaEl = document.getElementById("hora");
+    const categoriaEl = document.getElementById("categoria");
+    const estadoEl = document.getElementById("estado");
+    const fechaRealizacionEl = document.getElementById("fechaRealizacion");
+    const descEl = document.getElementById("descripcion");
+    const editIdEl = document.getElementById("editId");
+    const submitLabelEl = document.getElementById("submitLabel");
+    const editIndicatorEl = document.getElementById("editIndicator");
+
+    const modalBackdropEl = document.getElementById("modalBackdrop");
+    const modalTitleEl = document.getElementById("modalTitle");
+    const modalMetaEl = document.getElementById("modalMeta");
+    const modalDescEl = document.getElementById("modalDesc");
+    const modalTagBadgeEl = document.getElementById("modalTagBadge");
+    const modalTagLabelEl = document.getElementById("modalTagLabel");
+    const modalStatusPillEl = document.getElementById("modalStatusPill");
+    const modalRealizacionHintEl = document.getElementById("modalRealizacionHint");
+    const modalCloseBtn = document.getElementById("modalCloseBtn");
+    const modalEditBtn = document.getElementById("modalEditBtn");
+    const modalDeleteBtn = document.getElementById("modalDeleteBtn");
+    const modalToggleDoneBtn = document.getElementById("modalToggleDoneBtn");
+
+    let modalCurrentId = null;
+
+    function renderHeader() {
+      const today = new Date();
+      headerTodayLabelEl.textContent = today.toLocaleDateString("es-ES", {
+        weekday: "long", day: "2-digit", month: "long", year: "numeric"
+      });
+      headerWeekRangeEl.textContent = formatWeekRange(currentWeekStart);
+    }
+
+    function renderWeekHeader() {
+      weekHeaderEl.innerHTML = "";
+      const hourCol = document.createElement("div");
+      hourCol.textContent = "Hora";
+      weekHeaderEl.appendChild(hourCol);
+
+      const todayISO = formatDateISO(new Date());
+      for (let i = 0; i < 7; i++) {
+        const d = addDays(currentWeekStart, i);
+        const col = document.createElement("div");
+        const name = document.createElement("span");
+        name.className = "day-name";
+        name.textContent = d.toLocaleDateString("es-ES", { weekday: "short" });
+        const date = document.createElement("span");
+        date.className = "day-date";
+        date.textContent = d.toLocaleDateString("es-ES", {
+          day: "2-digit", month: "short"
+        });
+        col.appendChild(name);
+        col.appendChild(date);
+        if (formatDateISO(d) === todayISO) {
+          const pill = document.createElement("span");
+          pill.className = "today-pill";
+          pill.textContent = "Hoy";
+          col.appendChild(pill);
+        }
+        weekHeaderEl.appendChild(col);
+      }
+    }
+
+    function createEventChip(ev) {
+      const chip = document.createElement("div");
+      chip.className = "event-chip";
+      if (ev.estado === "hecho") chip.classList.add("done");
+      chip.dataset.id = ev.id;
+
+      const title = document.createElement("div");
+      title.className = "event-chip-title";
+      title.textContent = ev.titulo;
+
+      const meta = document.createElement("div");
+      meta.className = "event-chip-meta";
+
+      const catSpan = document.createElement("span");
+      catSpan.className = "event-chip-tag";
+      const catInfo = CATEGORIES[ev.categoria];
+      if (catInfo) {
+        catSpan.classList.add(catInfo.class);
+        const dot = document.createElement("span");
+        dot.className = "event-chip-tag-dot";
+        const label = document.createElement("span");
+        label.textContent = catInfo.label;
+        catSpan.appendChild(dot);
+        catSpan.appendChild(label);
+      } else {
+        catSpan.textContent = "Sin etiqueta";
+      }
+
+      const rightMeta = document.createElement("span");
+      const timeSpan = document.createElement("span");
+      timeSpan.className = "event-chip-time";
+      timeSpan.textContent = ev.hora;
+      const statusSpan = document.createElement("span");
+      statusSpan.className = "event-chip-status " +
+        (ev.estado === "hecho" ? "done" : "pending");
+      statusSpan.textContent = ev.estado === "hecho" ? "Hecho" : "Pendiente";
+
+      rightMeta.appendChild(timeSpan);
+      rightMeta.appendChild(statusSpan);
+
+      meta.appendChild(catSpan);
+      meta.appendChild(rightMeta);
+
+      chip.appendChild(title);
+      chip.appendChild(meta);
+
+      if (ev.descripcion) {
+        const desc = document.createElement("div");
+        desc.className = "event-chip-desc";
+        desc.textContent = ev.descripcion;
+        chip.appendChild(desc);
+      }
+
+      chip.addEventListener("click", () => openModal(ev.id));
+      return chip;
+    }
+
+    function renderWeekBody() {
+      const all = sortEvents(readEvents());
+      const weekEvents = all.filter(ev => {
+        const d = new Date(ev.fecha + "T00:00:00");
+        return d >= currentWeekStart && d < addDays(currentWeekStart, 7);
+      });
+
+      statsTotalEl.textContent = weekEvents.length;
+      const filtered = currentFilterCategory
+        ? weekEvents.filter(ev => ev.categoria === currentFilterCategory)
+        : weekEvents;
+      statsFilteredEl.textContent = filtered.length;
+
+      const byDayHour = {};
+      filtered.forEach(ev => {
+        const key = `${ev.fecha}-${ev.hora.slice(0, 2)}`;
+        if (!byDayHour[key]) byDayHour[key] = [];
+        byDayHour[key].push(ev);
+      });
+
+      weekBodyEl.innerHTML = "";
+
+      for (const hour of HOURS) {
+        const hourLabel = document.createElement("div");
+        hourLabel.className = "hour-label";
+        hourLabel.textContent = `${String(hour).padStart(2, "0")}:00`;
+        weekBodyEl.appendChild(hourLabel);
+
+        for (let i = 0; i < 7; i++) {
+          const d = addDays(currentWeekStart, i);
+          const dateISO = formatDateISO(d);
+          const key = `${dateISO}-${String(hour).padStart(2, "0")}`;
+          const cell = document.createElement("div");
+          cell.className = "cell";
+
+          const evs = byDayHour[key] || [];
+          evs.forEach(ev => cell.appendChild(createEventChip(ev)));
+
+          weekBodyEl.appendChild(cell);
+        }
+      }
+
+      if (!weekEvents.length) {
+        const row = document.createElement("div");
+        row.className = "empty-label";
+        row.textContent =
+          "No hay eventos esta semana. Crea uno con el formulario de la izquierda.";
+        row.style.gridColumn = `1 / span 8`;
+        weekBodyEl.appendChild(row);
+      }
+    }
+
+    // ----- RECORDATORIOS: hoy, mañana, vencidos -----
+    function renderReminders() {
+      const all = sortEvents(readEvents()).filter(ev => ev.estado !== "hecho");
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      const todayISO = formatDateISO(today);
+      const tomorrow = addDays(today,1);
+      const tomorrowISO = formatDateISO(tomorrow);
+
+      const vencidos = [];
+      const deHoy = [];
+      const deManiana = [];
+
+      all.forEach(ev => {
+        if (!ev.fecha) return;
+        if (ev.fecha < todayISO) vencidos.push(ev);
+        else if (ev.fecha === todayISO) deHoy.push(ev);
+        else if (ev.fecha === tomorrowISO) deManiana.push(ev);
+      });
+
+      const hasAny = vencidos.length || deHoy.length || deManiana.length;
+
+      if (!hasAny) {
+        remindersContentEl.innerHTML =
+          '<div class="reminders-empty">No tienes tareas pendientes para hoy, mañana ni vencidas.</div>';
+        return;
+      }
+
+      const createGroup = (titulo, lista) => {
+        if (!lista.length) return "";
+        const items = lista
+          .map(ev => {
+            const cat = CATEGORIES[ev.categoria];
+            const catLabel = cat ? ` [${cat.label}]` : "";
+            return `
+              <li class="reminder-item" data-id="${ev.id}">
+                <span class="title">${ev.titulo}${catLabel}</span>
+                <span class="time">${ev.hora}</span>
+              </li>`;
+          })
+          .join("");
+        return `
+          <div class="reminders-group">
+            <div class="reminders-group-title">${titulo}</div>
+            <ul class="reminders-list">
+              ${items}
+            </ul>
+          </div>`;
+      };
+
+      remindersContentEl.innerHTML =
+        createGroup("Vencidos", vencidos) +
+        createGroup("Hoy", deHoy) +
+        createGroup("Mañana", deManiana);
+
+      remindersContentEl
+        .querySelectorAll(".reminder-item")
+        .forEach(item => {
+          item.addEventListener("click", () => {
+            const id = item.dataset.id;
+            openModal(id);
+          });
+        });
+    }
+
+    function renderAll() {
+      renderHeader();
+      renderWeekHeader();
+      renderWeekBody();
+      renderReminders();
+    }
+
+    function resetForm() {
+      formEl.reset();
+      editIdEl.value = "";
+      submitLabelEl.textContent = "Guardar evento";
+      editIndicatorEl.style.display = "none";
+      setTodayAsDefault();
+      estadoEl.value = "pendiente";
+    }
+
+    function loadEventIntoForm(id) {
+      const events = readEvents();
+      const ev = events.find(e => e.id === id);
+      if (!ev) return;
+      tituloEl.value = ev.titulo;
+      fechaEl.value = ev.fecha;
+      horaEl.value = ev.hora;
+      categoriaEl.value = ev.categoria || "";
+      estadoEl.value = ev.estado || "pendiente";
+      fechaRealizacionEl.value = ev.fechaRealizacion || "";
+      descEl.value = ev.descripcion || "";
+      editIdEl.value = ev.id;
+      submitLabelEl.textContent = "Actualizar evento";
+      editIndicatorEl.style.display = "inline";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    formEl.addEventListener("submit", e => {
+      e.preventDefault();
+      const titulo = tituloEl.value.trim();
+      const fecha = fechaEl.value;
+      const hora = horaEl.value;
+      const categoria = categoriaEl.value;
+      const estado = estadoEl.value || "pendiente";
+      const fechaRealizacion = fechaRealizacionEl.value || "";
+      const descripcion = descEl.value.trim();
+      const editId = editIdEl.value;
+
+      if (!titulo || !fecha || !hora || !categoria) {
+        alert("Título, fecha, hora y etiqueta son obligatorios.");
+        return;
+      }
+
+      let events = readEvents();
+      if (editId) {
+        events = events.map(ev =>
+          ev.id === editId
+            ? { ...ev, titulo, fecha, hora, categoria, estado, fechaRealizacion, descripcion }
+            : ev
+        );
+      } else {
+        const nuevo = {
+          id: Date.now().toString(),
+          titulo,
+          fecha,
+          hora,
+          categoria,
+          estado,
+          fechaRealizacion,
+          descripcion
+        };
+        events.push(nuevo);
+      }
+
+      saveEvents(events);
+      resetForm();
+      renderAll();
+    });
+
+    document.getElementById("limpiarBtn").addEventListener("click", resetForm);
+
+    document.querySelectorAll(".tag-pill[data-tag]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tag = btn.dataset.tag;
+        categoriaEl.value = tag;
+      });
+    });
+
+    document.getElementById("prevWeekBtn").addEventListener("click", () => {
+      currentWeekStart = addDays(currentWeekStart, -7);
+      renderAll();
+    });
+    document.getElementById("nextWeekBtn").addEventListener("click", () => {
+      currentWeekStart = addDays(currentWeekStart, 7);
+      renderAll();
+    });
+    document.getElementById("todayBtn").addEventListener("click", () => {
+      currentWeekStart = getWeekStart(new Date());
+      renderAll();
+    });
+
+    filterSelectEl.addEventListener("change", () => {
+      currentFilterCategory = filterSelectEl.value;
+      renderWeekBody();
+    });
+    document.getElementById("clearFilterBtn").addEventListener("click", () => {
+      currentFilterCategory = "";
+      filterSelectEl.value = "";
+      renderWeekBody();
+    });
+
+    function openModal(id) {
+      modalCurrentId = id;
+      const events = readEvents();
+      const ev = events.find(e => e.id === id);
+      if (!ev) return;
+
+      modalTitleEl.textContent = ev.titulo;
+      const d = new Date(ev.fecha + "T00:00:00");
+      modalMetaEl.textContent = `${formatDateHuman(d)} · ${ev.hora}`;
+      modalDescEl.textContent =
+        ev.descripcion && ev.descripcion.trim()
+          ? ev.descripcion
+          : "Sin descripción adicional.";
+
+      const catInfo = CATEGORIES[ev.categoria];
+      if (catInfo) {
+        modalTagBadgeEl.className = "badge " + catInfo.class;
+        modalTagLabelEl.textContent = catInfo.label;
+      } else {
+        modalTagBadgeEl.className = "badge";
+        modalTagLabelEl.textContent = "Sin etiqueta";
+      }
+
+      if (ev.estado === "hecho") {
+        modalStatusPillEl.className = "status-pill done";
+        modalStatusPillEl.textContent = "Hecho";
+      } else {
+        modalStatusPillEl.className = "status-pill pending";
+        modalStatusPillEl.textContent = "Pendiente";
+      }
+
+      if (ev.fechaRealizacion) {
+        const dr = new Date(ev.fechaRealizacion + "T00:00:00");
+        modalRealizacionHintEl.textContent =
+          "Realizado el " + formatDateHuman(dr);
+      } else {
+        modalRealizacionHintEl.textContent = "";
+      }
+
+      modalBackdropEl.style.display = "flex";
+    }
+
+    function closeModal() {
+      modalBackdropEl.style.display = "none";
+      modalCurrentId = null;
+    }
+
+    modalCloseBtn.addEventListener("click", closeModal);
+    modalBackdropEl.addEventListener("click", e => {
+      if (e.target === modalBackdropEl) closeModal();
+    });
+
+    modalEditBtn.addEventListener("click", () => {
+      if (!modalCurrentId) return;
+      loadEventIntoForm(modalCurrentId);
+      closeModal();
+    });
+
+    modalDeleteBtn.addEventListener("click", () => {
+      if (!modalCurrentId) return;
+      if (!confirm("¿Seguro que quieres eliminar este evento?")) return;
+      let events = readEvents();
+      events = events.filter(ev => ev.id !== modalCurrentId);
+      saveEvents(events);
+      closeModal();
+      renderAll();
+    });
+
+    modalToggleDoneBtn.addEventListener("click", () => {
+      if (!modalCurrentId) return;
+      let events = readEvents();
+      const now = new Date();
+      const todayISO = formatDateISO(now);
+      events = events.map(ev => {
+        if (ev.id !== modalCurrentId) return ev;
+        const nuevoEstado = ev.estado === "hecho" ? "pendiente" : "hecho";
+        const nuevaFechaReal =
+          nuevoEstado === "hecho" && !ev.fechaRealizacion
+            ? todayISO
+            : ev.fechaRealizacion || "";
+        return { ...ev, estado: nuevoEstado, fechaRealizacion: nuevaFechaReal };
+      });
+      saveEvents(events);
+      closeModal();
+      renderAll();
+    });
+
+    function setTodayAsDefault() {
+      const today = new Date();
+      const y = today.getFullYear();
+      const m = String(today.getMonth() + 1).padStart(2, "0");
+      const d = String(today.getDate()).padStart(2, "0");
+      fechaEl.value = `${y}-${m}-${d}`;
+      const hh = String(today.getHours()).padStart(2, "0");
+      const mm = String(today.getMinutes()).padStart(2, "0");
+      horaEl.value = `${hh}:${mm}`;
+    }
+
+    (function init() {
+      setTodayAsDefault();
+      estadoEl.value = "pendiente";
+      renderAll();
+    })();
+  </script>
+</body>
+</html>
