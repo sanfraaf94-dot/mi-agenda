@@ -181,11 +181,6 @@
       color: #f9fafb;
     }
 
-    .accordion-sub {
-      font-size: 0.7rem;
-      color: var(--muted);
-    }
-
     .accordion-arrow {
       font-size: 0.9rem;
       color: #9ca3af;
@@ -341,7 +336,7 @@
       box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.6);
     }
 
-    /* Etiquetas / categorías */
+    /* Etiquetas */
 
     .tag-pill {
       display: inline-flex;
@@ -374,9 +369,9 @@
     .tag-seguros       { color: #67e8f9; }
     .tag-proveedores   { color: #f472b6; }
     .tag-otros         { color: #9ca3af; }
-    .tag-vacaciones    { color: #22c55e; }
+    .tag-vacaciones    { color: #ea580c; } /* naranja fuerte */
 
-    /* Panel recordatorios */
+    /* Recordatorios */
 
     .reminders {
       margin-bottom: 10px;
@@ -445,8 +440,6 @@
       padding: 2px 0 4px;
     }
 
-    /* Colores recordatorios según etiqueta */
-
     .reminder-doctores      { background: rgba(248, 113, 150, 0.15); border-color: rgba(248, 113, 150, 0.4);}
     .reminder-facturacion   { background: rgba(56, 189, 248, 0.15);  border-color: rgba(56, 189, 248, 0.4);}
     .reminder-contabilidad  { background: rgba(168, 85, 247, 0.18);  border-color: rgba(168, 85, 247, 0.45);}
@@ -457,7 +450,69 @@
     .reminder-seguros       { background: rgba(45, 212, 191, 0.15);  border-color: rgba(45, 212, 191, 0.45);}
     .reminder-proveedores   { background: rgba(244, 114, 182, 0.18); border-color: rgba(244, 114, 182, 0.45);}
     .reminder-otros         { background: rgba(75, 85, 99, 0.2);     border-color: rgba(75, 85, 99, 0.5);}
-    .reminder-vacaciones    { background: rgba(22, 163, 74, 0.18);   border-color: rgba(22, 163, 74, 0.5);}
+    .reminder-vacaciones    { background: rgba(234, 88, 12, 0.25);   border-color: rgba(248, 113, 22, 0.8); }
+
+    /* Bloque próximos días de vacaciones */
+
+    .vacations-block {
+      margin-top: 8px;
+      border-radius: var(--radius);
+      padding: 8px 10px 6px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .vacations-title {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fed7aa;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .vacations-title span.right {
+      font-size: 0.72rem;
+      color: #f97316;
+    }
+
+    .vacations-empty {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    .vacations-list {
+      list-style: none;
+      font-size: 0.75rem;
+      margin-left: 2px;
+      margin-top: 2px;
+    }
+
+    .vacation-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 3px 6px;
+      border-radius: 6px;
+      background: rgba(17, 24, 39, 0.9);
+      border: 1px dashed rgba(248, 113, 22, 0.8);
+      margin-bottom: 3px;
+      cursor: pointer;
+    }
+
+    .vacation-item span.date {
+      color: #fed7aa;
+      font-weight: 500;
+    }
+
+    .vacation-item span.title {
+      color: #f9fafb;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     /* Toolbar y stats */
 
@@ -533,8 +588,6 @@
       margin-top: 4px;
     }
 
-    /* Vista toggle */
-
     .view-toggle {
       display: inline-flex;
       border-radius: 999px;
@@ -544,7 +597,7 @@
       gap: 3px;
     }
 
-    /* Calendario semanal */
+    /* Semana */
 
     .week-grid {
       margin-top: 10px;
@@ -617,7 +670,7 @@
       background: rgba(15, 23, 42, 0.96);
     }
 
-    /* Vista diaria */
+    /* Día */
 
     .day-view {
       margin-top: 10px;
@@ -1081,12 +1134,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Indicador de edición -->
-        <div class="section-title" style="margin-top:6px;">
-          <h2>Estado</h2>
-          <span id="editIndicator" style="display:none;">Editando tarea</span>
-        </div>
       </section>
 
       <!-- PANEL DERECHO -->
@@ -1098,6 +1145,15 @@
             <span class="reminders-subtitle">Vencidos · Hoy · Mañana</span>
           </div>
           <div id="remindersContent"></div>
+
+          <!-- Próximos días de vacaciones -->
+          <div class="vacations-block">
+            <div class="vacations-title">
+              <span>Próximos días de vacaciones</span>
+              <span class="right" id="vacationsMonthLabel"></span>
+            </div>
+            <div id="vacationsContent"></div>
+          </div>
         </div>
 
         <div class="section-title">
@@ -1108,9 +1164,9 @@
         <div class="toolbar">
           <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
             <div class="date-controls">
-              <button type="button" id="prevWeekBtn">◀</button>
+              <button type="button" id="prevDayBtn">◀</button>
               <button type="button" id="todayBtn">Hoy</button>
-              <button type="button" id="nextWeekBtn">▶</button>
+              <button type="button" id="nextDayBtn">▶</button>
             </div>
             <div class="view-toggle">
               <button type="button" class="btn-secondary btn-toggle-view active" id="viewWeekBtn">
@@ -1210,7 +1266,7 @@
   </div>
 
   <script>
-    const STORAGE_KEY = "agenda_finanzas_idb_v2";
+    const STORAGE_KEY = "agenda_finanzas_idb_v4";
 
     const CATEGORIES = {
       doctores:     { label: "Doctores", class: "tag-doctores",      rClass:"reminder-doctores" },
@@ -1247,14 +1303,6 @@
       });
     }
 
-    function getWeekStart(date) {
-      const d = new Date(date);
-      const day = d.getDay(); // 0 dom
-      const diff = (day === 0 ? -6 : 1) - day;
-      d.setDate(d.getDate() + diff);
-      d.setHours(0, 0, 0, 0);
-      return d;
-    }
     function addDays(date, days) { const d = new Date(date); d.setDate(d.getDate() + days); return d; }
     function formatDateISO(date) {
       const y = date.getFullYear();
@@ -1267,20 +1315,10 @@
         day: "2-digit", month: "short", year: "numeric"
       });
     }
-    function formatWeekRange(weekStart) {
-      const s = new Date(weekStart);
-      const e = addDays(s, 6);
-      const o = { day: "2-digit", month: "short" };
-      const ss = s.toLocaleDateString("es-ES", o);
-      const es = e.toLocaleDateString("es-ES", {
-        ...o, year: s.getFullYear() === e.getFullYear() ? undefined : "numeric"
-      });
-      return `${ss} – ${es} · ${e.getFullYear()}`;
-    }
 
-    let currentWeekStart = getWeekStart(new Date());
     let currentFilterCategory = "";
     let currentView = "week";
+    let currentDayISO = formatDateISO(new Date());
 
     const weekHeaderEl = document.getElementById("weekHeader");
     const weekBodyEl = document.getElementById("weekBody");
@@ -1290,6 +1328,8 @@
     const headerTodayLabelEl = document.getElementById("headerTodayLabel");
     const headerWeekRangeEl = document.getElementById("headerWeekRange");
     const remindersContentEl = document.getElementById("remindersContent");
+    const vacationsContentEl = document.getElementById("vacationsContent");
+    const vacationsMonthLabelEl = document.getElementById("vacationsMonthLabel");
 
     const weekViewEl = document.getElementById("weekView");
     const dayViewEl = document.getElementById("dayView");
@@ -1310,7 +1350,6 @@
     const descEl = document.getElementById("descripcion");
     const editIdEl = document.getElementById("editId");
     const submitLabelEl = document.getElementById("submitLabel");
-    const editIndicatorEl = document.getElementById("editIndicator");
 
     const modalBackdropEl = document.getElementById("modalBackdrop");
     const modalTitleEl = document.getElementById("modalTitle");
@@ -1334,10 +1373,8 @@
     function toggleAccordion(forceOpen = null) {
       const content = accordionBodyEl;
       const header = accordionHeaderEl;
-
       const shouldOpen = forceOpen !== null ? forceOpen : !accordionOpen;
       accordionOpen = shouldOpen;
-
       if (shouldOpen) {
         const inner = content.querySelector(".accordion-body-inner");
         const h = inner.scrollHeight;
@@ -1356,7 +1393,11 @@
       headerTodayLabelEl.textContent = today.toLocaleDateString("es-ES", {
         weekday: "long", day: "2-digit", month: "long", year: "numeric"
       });
-      headerWeekRangeEl.textContent = formatWeekRange(currentWeekStart);
+
+      const d = new Date(currentDayISO + "T00:00:00");
+      headerWeekRangeEl.textContent = d.toLocaleDateString("es-ES", {
+        weekday: "long", day: "2-digit", month: "short", year: "numeric"
+      });
     }
 
     function renderWeekHeader() {
@@ -1365,9 +1406,13 @@
       hourCol.textContent = "Hora";
       weekHeaderEl.appendChild(hourCol);
 
+      const baseDate = new Date(currentDayISO + "T00:00:00");
+      baseDate.setDate(baseDate.getDate() - baseDate.getDay() + 1); // lunes
+
       const todayISO = formatDateISO(new Date());
+
       for (let i = 0; i < 7; i++) {
-        const d = addDays(currentWeekStart, i);
+        const d = addDays(baseDate, i);
         const col = document.createElement("div");
         const name = document.createElement("span");
         name.className = "day-name";
@@ -1448,10 +1493,13 @@
 
     function renderWeekBody() {
       const all = sortEvents(readEvents());
-      const weekEvents = all.filter(ev => {
-        const d = new Date(ev.fecha + "T00:00:00");
-        return d >= currentWeekStart && d < addDays(currentWeekStart, 7);
-      });
+      const baseDate = new Date(currentDayISO + "T00:00:00");
+      baseDate.setDate(baseDate.getDate() - baseDate.getDay() + 1); // lunes
+
+      const startISO = formatDateISO(baseDate);
+      const endISO = formatDateISO(addDays(baseDate, 6));
+
+      const weekEvents = all.filter(ev => ev.fecha >= startISO && ev.fecha <= endISO);
 
       statsTotalEl.textContent = weekEvents.length;
       const filtered = currentFilterCategory
@@ -1475,7 +1523,7 @@
         weekBodyEl.appendChild(hourLabel);
 
         for (let i = 0; i < 7; i++) {
-          const d = addDays(currentWeekStart, i);
+          const d = addDays(baseDate, i);
           const dateISO = formatDateISO(d);
           const key = `${dateISO}-${String(hour).padStart(2, "0")}`;
           const cell = document.createElement("div");
@@ -1498,10 +1546,8 @@
       }
     }
 
-    // ---- Vista diaria ----
     function renderDayView() {
-      const selectedDate = daySelectorEl.value || formatDateISO(new Date());
-      const d = new Date(selectedDate + "T00:00:00");
+      const d = new Date(currentDayISO + "T00:00:00");
       dayViewMainEl.textContent = d.toLocaleDateString("es-ES", {
         weekday: "long",
         day: "2-digit",
@@ -1510,7 +1556,7 @@
       dayViewSubEl.textContent = d.getFullYear();
 
       const all = sortEvents(readEvents());
-      let dayEvents = all.filter(ev => ev.fecha === selectedDate);
+      let dayEvents = all.filter(ev => ev.fecha === currentDayISO);
       if (currentFilterCategory) {
         dayEvents = dayEvents.filter(ev => ev.categoria === currentFilterCategory);
       }
@@ -1553,7 +1599,6 @@
       });
     }
 
-    // ----- RECORDATORIOS -----
     function renderReminders() {
       const all = sortEvents(readEvents()).filter(ev => ev.estado !== "hecho");
       const today = new Date();
@@ -1578,39 +1623,94 @@
       if (!hasAny) {
         remindersContentEl.innerHTML =
           '<div class="reminders-empty">Sin pendientes vencidos, de hoy o mañana.</div>';
+      } else {
+        const createGroup = (titulo, lista) => {
+          if (!lista.length) return "";
+          const items = lista
+            .map(ev => {
+              const cat = CATEGORIES[ev.categoria];
+              const catLabel = cat ? ` · ${cat.label}` : "";
+              const rClass = cat && cat.rClass ? cat.rClass : "";
+              return `
+                <li class="reminder-item ${rClass}" data-id="${ev.id}">
+                  <span class="title">${ev.titulo}${catLabel}</span>
+                  <span class="time">${ev.hora}</span>
+                </li>`;
+            })
+            .join("");
+          return `
+            <div class="reminders-group">
+              <div class="reminders-group-title">${titulo}</div>
+              <ul class="reminders-list">
+                ${items}
+              </ul>
+            </div>`;
+        };
+
+        remindersContentEl.innerHTML =
+          createGroup("Vencidos", vencidos) +
+          createGroup("Hoy", deHoy) +
+          createGroup("Mañana", deManiana);
+
+        remindersContentEl
+          .querySelectorAll(".reminder-item")
+          .forEach(item => {
+            item.addEventListener("click", () => {
+              const id = item.dataset.id;
+              openModal(id);
+            });
+          });
+      }
+
+      renderVacationsBlock();
+    }
+
+    function renderVacationsBlock() {
+      const all = sortEvents(readEvents())
+        .filter(ev => ev.categoria === "vacaciones" && ev.estado !== "hecho");
+
+      const today = new Date();
+      const todayISO = formatDateISO(today);
+      const month = today.getMonth();
+      const year = today.getFullYear();
+
+      const monthLabel = today.toLocaleDateString("es-ES", {
+        month: "long", year: "numeric"
+      });
+      vacationsMonthLabelEl.textContent = monthLabel;
+
+      const upcoming = all.filter(ev => {
+        if (!ev.fecha || ev.fecha < todayISO) return false;
+        const d = new Date(ev.fecha + "T00:00:00");
+        return d.getMonth() === month && d.getFullYear() === year;
+      });
+
+      if (!upcoming.length) {
+        vacationsContentEl.innerHTML =
+          '<div class="vacations-empty">No hay días de vacaciones pendientes este mes.</div>';
         return;
       }
 
-      const createGroup = (titulo, lista) => {
-        if (!lista.length) return "";
-        const items = lista
-          .map(ev => {
-            const cat = CATEGORIES[ev.categoria];
-            const catLabel = cat ? ` · ${cat.label}` : "";
-            const rClass = cat && cat.rClass ? cat.rClass : "";
-            return `
-              <li class="reminder-item ${rClass}" data-id="${ev.id}">
-                <span class="title">${ev.titulo}${catLabel}</span>
-                <span class="time">${ev.hora}</span>
-              </li>`;
-          })
-          .join("");
-        return `
-          <div class="reminders-group">
-            <div class="reminders-group-title">${titulo}</div>
-            <ul class="reminders-list">
-              ${items}
-            </ul>
-          </div>`;
-      };
+      const items = upcoming
+        .map(ev => {
+          const d = new Date(ev.fecha + "T00:00:00");
+          const dateStr = d.toLocaleDateString("es-ES", {
+            day: "2-digit", month: "short"
+          });
+          const title = ev.titulo || "Vacaciones";
+          return `
+            <li class="vacation-item" data-id="${ev.id}">
+              <span class="date">${dateStr}</span>
+              <span class="title">${title}</span>
+            </li>`;
+        })
+        .join("");
 
-      remindersContentEl.innerHTML =
-        createGroup("Vencidos", vencidos) +
-        createGroup("Hoy", deHoy) +
-        createGroup("Mañana", deManiana);
+      vacationsContentEl.innerHTML =
+        `<ul class="vacations-list">${items}</ul>`;
 
-      remindersContentEl
-        .querySelectorAll(".reminder-item")
+      vacationsContentEl
+        .querySelectorAll(".vacation-item")
         .forEach(item => {
           item.addEventListener("click", () => {
             const id = item.dataset.id;
@@ -1631,7 +1731,6 @@
       formEl.reset();
       editIdEl.value = "";
       submitLabelEl.textContent = "Guardar tarea";
-      editIndicatorEl.style.display = "none";
       setTodayAsDefault();
       estadoEl.value = "pendiente";
     }
@@ -1649,7 +1748,6 @@
       descEl.value = ev.descripcion || "";
       editIdEl.value = ev.id;
       submitLabelEl.textContent = "Actualizar tarea";
-      editIndicatorEl.style.display = "inline";
       toggleAccordion(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
       if (currentView === "day") renderDayView();
@@ -1706,19 +1804,25 @@
       });
     });
 
-    document.getElementById("prevWeekBtn").addEventListener("click", () => {
-      currentWeekStart = addDays(currentWeekStart, -7);
+    document.getElementById("prevDayBtn").addEventListener("click", () => {
+      const d = new Date(currentDayISO + "T00:00:00");
+      currentDayISO = formatDateISO(addDays(d, -1));
+      daySelectorEl.value = currentDayISO;
       renderAll();
     });
-    document.getElementById("nextWeekBtn").addEventListener("click", () => {
-      currentWeekStart = addDays(currentWeekStart, 7);
+
+    document.getElementById("nextDayBtn").addEventListener("click", () => {
+      const d = new Date(currentDayISO + "T00:00:00");
+      currentDayISO = formatDateISO(addDays(d, 1));
+      daySelectorEl.value = currentDayISO;
       renderAll();
     });
+
     document.getElementById("todayBtn").addEventListener("click", () => {
       const today = new Date();
-      currentWeekStart = getWeekStart(today);
+      currentDayISO = formatDateISO(today);
+      daySelectorEl.value = currentDayISO;
       setTodayAsDefault();
-      daySelectorEl.value = formatDateISO(today);
       renderAll();
     });
 
@@ -1734,12 +1838,12 @@
       if (currentView === "day") renderDayView();
     });
 
-    // Selector de día para vista diaria
     daySelectorEl.addEventListener("change", () => {
-      if (currentView === "day") renderDayView();
+      if (!daySelectorEl.value) return;
+      currentDayISO = daySelectorEl.value;
+      renderAll();
     });
 
-    // Cambiar vista semana/día
     function setView(view) {
       currentView = view;
       if (view === "week") {
@@ -1759,7 +1863,6 @@
     viewWeekBtn.addEventListener("click", () => setView("week"));
     viewDayBtn.addEventListener("click", () => setView("day"));
 
-    // Modal
     function openModal(id) {
       modalCurrentId = id;
       const events = readEvents();
@@ -1855,13 +1958,14 @@
       const todayISO = `${y}-${m}-${d}`;
       fechaEl.value = todayISO;
       daySelectorEl.value = todayISO;
+      currentDayISO = todayISO;
       const hh = String(today.getHours()).padStart(2, "0");
       const mm = String(today.getMinutes()).padStart(2, "0");
       horaEl.value = `${hh}:${mm}`;
     }
 
     (function init() {
-      toggleAccordion(false); // formulario cerrado al inicio
+      toggleAccordion(false);
       setTodayAsDefault();
       estadoEl.value = "pendiente";
       renderAll();
